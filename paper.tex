@@ -215,7 +215,7 @@ Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
 The method, for now, consists on the procedures and elements
 necessary to construct a basic Intuitionistic Fuzzy Inference System
 (IFIS). This design was completed in order to make comparisons against
-classic fuzzy inference systems, such as Type-1 FIS, Interval
+classic Fuzzy Inference Systems (FISs), such as Type-1 FIS, Interval
 Type-2 and General Type-2 FIS, and prove that
 the design was viable and able to contribute to better results than
 the classic FISs.
@@ -225,60 +225,14 @@ hand, by interviewing experts who assign memberships and
 non-memberships to each of the values of a set (such as in
 \cite{davarzani2013novel}). This work proposes a convenient way of
 creating an IFS, imitating many systems that use Gaussian
-membership functions to facilitate an expert the representation of a
+membership functions (MFs) to facilitate an expert the representation of a
 fuzzy interpretation. An example of an IFS is depicted in
 Fig. \ref{fs-as-ifs}. This IFS represents a classic fuzzy set, as it
 satisfies (\ref{ifs-form}) and (\ref{fs-as-ifs-if}), by representing
-the membership function as the red line, and the non-membership
-function as the blue line. In order to contruct the non-membership
-function, one has to invert a normal Gaussian membership function.
-
-Two convenient ways of modifying the non-membership function and
-satisfy (\ref{intuitionistic-interval}) are as follows: 1) one can set
-the mean and the standard deviation of the Gaussian functions to be
-the same, and only vary the $height$ of the non-membership function,
-as is depicted in \ref{ifs}; and 2) one can set different means and
-standard deviations of the Gaussian membership and non-membership
-functions, but the $height$ of the membership function must be equal
-to $h_{mf} = 1 - h_{nmf}$, as this ensures that
-(\ref{intuitionistic-interval}) is satisfied. An example of the latter
-case is shown in Fig. \ref{ifs-diff-mu-sd}.To clarify, the $height$
-of the membership function ($h_{mf}$) of an IFS is equal to
-$max(\mu(x))$, and the $height$ of the non-membership function
-($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
-
-The first step 
-
-
-% How a classic fuzzy set is represented as a ifs. How an intuitionistic
-% fuzzy set is represented in this work.
-
-% How the non-membership is going to affect the membership (show
-% formula). Present both examples (stating the parameters).
-
-% How the coa is calculated (show formula and plot). How the formula can
-% be contracted.
-
-\begin{figure}[!t]
-  \centering
-  \includegraphics[height=2.5in]{proposed-method-flow-chart}
-  \caption{Proposed Method Flow Chart}
-  \label{flow-chart}
-\end{figure}
-
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=2.5in]{alpha-cut}
-  \caption{$\alpha$-cut of an Intuitionistic Fuzzy Set}
-  \label{alpha-cut}
-\end{figure}
-
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=2.5in]{ifs-union}
-  \caption{Union of Three $\alpha$-cut Intuitionistic Fuzzy Sets}
-  \label{ifs-union}
-\end{figure}
+the MF as the red line, and the non-membership
+function (NMF) as the blue line. In order to contruct the NMF, one has
+to rotate a normal Gaussian MF by 180˚, and this can be seen as the
+complement of the fuzzy set corresponding to a Gaussian MF.
 
 \begin{figure}[!t]
   \centering
@@ -286,6 +240,19 @@ The first step
   \caption{Classic Fuzzy Set Represented as an Intuitionistic Fuzzy Set}
   \label{fs-as-ifs}
 \end{figure}
+
+Two convenient ways of modifying the NMF and
+satisfy (\ref{intuitionistic-interval}) are as follows: 1) one can set
+the mean and the standard deviation of the Gaussian functions to be
+the same, and only vary the $height$ of the NMF,
+as is depicted in Fig. \ref{ifs}; and 2) one can set different means and
+standard deviations of the Gaussian membership and non-membership
+functions, but the $height$ of the MF must be equal
+to $h_{mf} = 1 - h_{nmf}$, as this ensures that
+(\ref{intuitionistic-interval}) is satisfied. An example of the latter
+case is shown in Fig. \ref{ifs-diff-mu-sd}. To clarify, the $height$
+of the MF ($h_{mf}$) of an IFS is equal to $max(\mu(x))$, and the
+$height$ of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
 
 \begin{figure}[!t]
   \centering
@@ -302,6 +269,43 @@ The first step
   \label{ifs-diff-mu-sd}
 \end{figure}
 
+The first step in an inference process in a classic FIS (a flow chart
+for the process in an IFIS is given in Fig. \ref{flow-chart}) is to
+determine what membership corresponds to a given input, given a set of
+MFs. This is straightforward in a classic FIS, as the
+membership to each input is already established in the membership
+fuzzy set. For an IFIS, this work proposes a method to determine a
+membership given a MF and a NMF,
+which is described in (\ref{imembership}), and receives the name of
+$i\mu$ (intuitionistic membership).
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[height=2.5in]{proposed-method-flow-chart}
+  \caption{Proposed Method Flow Chart}
+  \label{flow-chart}
+\end{figure}
+
+% i-membership
+\begin{equation}
+  \label{imembership}
+  i\mu_{A}(x) = (\nu_{A}(x) + \mu_{A}(x))\mu_{A}(x)
+\end{equation}
+
+A comparison of a MF (red line) against an intuitionistic
+membership function (blueline) is shown in Fig.
+\ref{if-membership}. The parameters for both the MF and NMF are $\mu =
+50$ and $SD = 15$, but the $height$ for the NMF is set at $0.5$. This
+results in an intuitionistic MF that appears to have the same mean,
+but a smaller standard deviation. A more elaborated example is shown
+in Fig. \ref{if-membership-drastic}, where the parameters of the MF
+are $\mu = 50$, $SD = 15$ and $h = 0.8$, and the parameters of the NMF
+are $\mu = 30$, $SD = 20$ and $h = 0.2$. As can be noted, the
+indeterminancy ($\pi$) is high in this example, which results in a
+smaller $SD$ for the intuitionistic MF. Moreover, the difference in
+means and standard deviations generates a change of the mean for the
+intuitionistic MF.
+
 \begin{figure}[!t]
   \centering
   \includegraphics[width=2.5in]{if-membership}
@@ -316,35 +320,109 @@ The first step
   \label{if-membership-drastic}
 \end{figure}
 
+The next step in the inference process is to perform an $\alpha$-cut
+on the associated consequents to the antecedents that are activated by
+the inputs. In a classic FIS, this process is straightforward, as the
+memeberships in a fuzzy set representing a consequent are ``cut'' by
+following (\ref{alpha-cut}) for every element in a fuzzy set
+representing a consequent. In an intuitionistic MF, one can follow
+the same procedure in order to obtain the $\alpha$-cut in the MF part,
+but to obtain the $\alpha$-cut in the NMF, (\ref{nmf-alpha-cut}) must
+be followed. In (\ref{nmf-alpha-cut}), the counterintuitive part is
+that one has to find the corresponding $\nu$ for a given
+$\mu_{\alpha}$. An example of an $\alpha$-cut, with $\mu_{\alpha} =
+0.6$, is depicted in Fig. \ref{alpha-cut-example}.
+
+\begin{equation}
+  \label{alpha-cut}
+  \alpha(\mu (x),\mu_{\alpha}) =
+  \begin{cases}
+    \mu (x), & \text{if}\ \mu (x) \leq \mu_{alpha}  \\
+    \mu_{\alpha}, & \text{otherwise}
+  \end{cases}
+\end{equation}
+
+\begin{equation}
+  \label{nmf-alpha-cut}
+  \alpha_{NMF}(\nu (x),\mu_{\alpha}) =
+  \begin{cases}
+    \nu (x), & \text{if}\ \nu (x) \geq \nu (\mu_{alpha})  \\
+    \nu (\mu_{alpha}), & \text{otherwise}
+  \end{cases}
+\end{equation}
+
 \begin{figure}[!t]
   \centering
-  \includegraphics[width=2.5in]{if-coa-vs-coa}
-  \caption{Comparison of $CoA(A_{i})$ Against $iCoA{A_{i}}$}
-  \label{if-coa-vs-coa}
+  \includegraphics[width=2.5in]{alpha-cut}
+  \caption{$\alpha$-cut of an Intuitionistic Fuzzy Set}
+  \label{alpha-cut-example}
 \end{figure}
 
-% i-membership
+After performing every necessary $\alpha$-cut, one has to apply the
+union operator over every resulting fuzzy set, in order to aggregate
+the weights of all the consequents. The union operator is defined by
+K. Atanassov \cite{atanassov2013intuitionistic}, for every two IFSs A
+and B, as in (\ref{union-operator}). An example of an union of three
+IFSs is shown in Fig. (\ref{ifs-union}).
+
 \begin{equation}
-  i\mu_{A}(x) = (\nu_{A}(x) + \mu_{A}(x))\mu_{A}(x)
+  \label{union-operator}
+  \begin{aligned}
+    A \cup B  = &\{ \langle x, max(\mu_{A} (x), \mu_{B} (x)),\\
+    &\quad min(\nu_{A} (x), \nu_{B} (x)) \rangle | x \in E \}
+\end{aligned}
 \end{equation}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{ifs-union}
+  \caption{Union of Three $\alpha$-cut Intuitionistic Fuzzy Sets}
+  \label{ifs-union}
+\end{figure}
+
+Finally, one has to defuzzify the aggregation of the $\alpha$-cut
+consequents, in order to obtain a crisp number that represents
+it. There are a number of methods that can be used to defuzzify a
+fuzzy set, but the most frequently found in the literature is the
+Center of Area (CoA), or simply centroid. One can obtain the centroid
+of a classic fuzzy set A by using (\ref{center-of-area}). For an
+IFS, one can use the concept of intuitionistic membership ($i\mu$) and
+extend (\ref{center-of-area}) to obtain (\ref{if-coa}). By
+substituting $(\mu(x_{i}) + \nu(x_{i}))$ by $i\mu_{A}$, one arrives at
+(\ref{if-coa-simplified}), which is a simplification of (\ref{if-coa}).
 
 % CoA
 \begin{equation}
+  \label{center-of-area}
   A_{CoA} = \dfrac{\sum_{i=1}^{N} \mu(x_{i})
     x_{i}}{\sum_{i=1}^{N} \mu(x_{i})}
 \end{equation}
 
 %iCoA
 \begin{equation}
+  \label{if-coa}
   A_{iCoA} = \dfrac{\sum_{i=1}^{N} (\mu(x_{i}) + \nu(x_{i})) \mu(x_{i})
     x_{i}}{\sum_{i=1}^{N} (\mu(x_{i}) + \nu(x_{i})) \mu(x_{i})}
 \end{equation}
 
 %iCoA contracted
 \begin{equation}
+  \label{if-coa-simplified}
   A_{iCoA} = \dfrac{\sum_{i=1}^{N} i\mu_{A}(x) x_{i}}{\sum_{i=1}^{N}
     i\mu_{A}(x)}
 \end{equation}
+
+Fig. \ref{if-coa-vs-coa} shows the plot of the defuzzification of
+several IFSs with $CoA$ (red line) and $iCoA$ (blue line), with means set
+from 0 to 100 for the MF, and -20 to 80 for the NMF, and standard
+deviations of 15 for the MF, and 20 for the NMF.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{if-coa-vs-coa}
+  \caption{Comparison of $CoA_{A_{i}}$ Against $iCoA_{A_{i}}$}
+  \label{if-coa-vs-coa}
+\end{figure}
 
 \section{Experiments}
 
