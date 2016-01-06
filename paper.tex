@@ -40,8 +40,8 @@
 
 
 \usepackage[pdftex]{graphicx}
-\graphicspath{{./png/}}
-\DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\graphicspath{{./png/}{./eps/}}
+\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.eps}
 
 % *** GRAPHICS RELATED PACKAGES ***
 % 
@@ -241,13 +241,14 @@ as is depicted in \ref{ifs}; and 2) one can set different means and
 standard deviations of the Gaussian membership and non-membership
 functions, but the $height$ of the membership function must be equal
 to $h_{mf} = 1 - h_{nmf}$, as this ensures that
-(\ref{intuitionistic-interval}) is satisfied. To clarify, the $height$
+(\ref{intuitionistic-interval}) is satisfied. An example of the latter
+case is shown in Fig. \ref{ifs-diff-mu-sd}.To clarify, the $height$
 of the membership function ($h_{mf}$) of an IFS is equal to
 $max(\mu(x))$, and the $height$ of the non-membership function
 ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
 
+The first step
 
-%\ref{ifs-diff-mu-sd}
 
 % How a classic fuzzy set is represented as a ifs. How an intuitionistic
 % fuzzy set is represented in this work.
@@ -257,6 +258,27 @@ $max(\mu(x))$, and the $height$ of the non-membership function
 
 % How the coa is calculated (show formula and plot). How the formula can
 % be contracted.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[height=2.5in]{proposed-method-flow-chart}
+  \caption{Proposed Method Flow Chart}
+  \label{flow-chart}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{alpha-cut}
+  \caption{$\alpha$-cut of an Intuitionistic Fuzzy Set}
+  \label{alpha-cut}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{ifs-union}
+  \caption{Union of Three $\alpha$-cut Intuitionistic Fuzzy Sets}
+  \label{ifs-union}
+\end{figure}
 
 \begin{figure}[!t]
   \centering
