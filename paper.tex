@@ -329,7 +329,9 @@ representing a consequent. In an intuitionistic MF, one can follow
 the same procedure in order to obtain the $\alpha$-cut in the MF part,
 but to obtain the $\alpha$-cut in the NMF, (\ref{nmf-alpha-cut}) must
 be followed. In (\ref{nmf-alpha-cut}), the counterintuitive part is
-that one has to find the corresponding $\nu$ for a given $\mu_{alpha}$.
+that one has to find the corresponding $\nu$ for a given
+$\mu_{\alpha}$. An example of an $\alpha$-cut, with $\mu_{\alpha} =
+0.6$, is depicted in Fig. \ref{alpha-cut-example}.
 
 \begin{equation}
   \label{alpha-cut}
@@ -349,15 +351,27 @@ that one has to find the corresponding $\nu$ for a given $\mu_{alpha}$.
   \end{cases}
 \end{equation}
 
-% How the coa is calculated (show formula and plot). How the formula can
-% be contracted.
-
 \begin{figure}[!t]
   \centering
   \includegraphics[width=2.5in]{alpha-cut}
   \caption{$\alpha$-cut of an Intuitionistic Fuzzy Set}
-  \label{alpha-cut}
+  \label{alpha-cut-example}
 \end{figure}
+
+After performing every necessary $\alpha$-cut, one has to apply the
+union operator over every resulting fuzzy set, in order to aggregate
+the weights of all the consequents. The union operator is defined by
+K. Atanassov \cite{atanassov2013intuitionistic}, for every two IFSs A
+and B, as in (\ref{union-operator}). An example of an union of three
+IFSs is shown in Fig. (\ref{ifs-union}).
+
+\begin{equation}
+  \label{union-operator}
+  \begin{aligned}
+    A \cup B  = &\{ \langle x, max(\mu_{A} (x), \mu_{B} (x)),\\
+    &\quad min(\nu_{A} (x), \nu_{B} (x)) \rangle | x \in E \}
+\end{aligned}
+\end{equation}
 
 \begin{figure}[!t]
   \centering
@@ -366,30 +380,49 @@ that one has to find the corresponding $\nu$ for a given $\mu_{alpha}$.
   \label{ifs-union}
 \end{figure}
 
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=2.5in]{if-coa-vs-coa}
-  \caption{Comparison of $CoA(A_{i})$ Against $iCoA{A_{i}}$}
-  \label{if-coa-vs-coa}
-\end{figure}
+Finally, one has to defuzzify the aggregation of the $\alpha$-cut
+consequents, in order to obtain a crisp number that represents
+it. There are a number of methods that can be used to defuzzify a
+fuzzy set, but the most frequently found in the literature is the
+Center of Area (CoA), or simply centroid. One can obtain the centroid
+of a classic fuzzy set A by using (\ref{center-of-area}). For an
+IFS, one can use the concept of intuitionistic membership ($i\mu$) and
+extend (\ref{center-of-area}) to obtain (\ref{if-coa}). By
+substituting $(\mu(x_{i}) + \nu(x_{i}))$ by $i\mu_{A}$, one arrives at
+(\ref{if-coa-simplified}), which is a simplification of (\ref{if-coa}).
 
 % CoA
 \begin{equation}
+  \label{center-of-area}
   A_{CoA} = \dfrac{\sum_{i=1}^{N} \mu(x_{i})
     x_{i}}{\sum_{i=1}^{N} \mu(x_{i})}
 \end{equation}
 
 %iCoA
 \begin{equation}
+  \label{if-coa}
   A_{iCoA} = \dfrac{\sum_{i=1}^{N} (\mu(x_{i}) + \nu(x_{i})) \mu(x_{i})
     x_{i}}{\sum_{i=1}^{N} (\mu(x_{i}) + \nu(x_{i})) \mu(x_{i})}
 \end{equation}
 
 %iCoA contracted
 \begin{equation}
+  \label{if-coa-simplified}
   A_{iCoA} = \dfrac{\sum_{i=1}^{N} i\mu_{A}(x) x_{i}}{\sum_{i=1}^{N}
     i\mu_{A}(x)}
 \end{equation}
+
+Fig. \ref{if-coa-vs-coa} shows the plot of the defuzzification of
+several IFSs with $CoA$ (red line) and $iCoA$ (blue line), with means set
+from 0 to 100 for the MF, and -20 to 80 for the NMF, and standard
+deviations of 15 for the MF, and 20 for the NMF.
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{if-coa-vs-coa}
+  \caption{Comparison of $CoA_{A_{i}}$ Against $iCoA_{A_{i}}$}
+  \label{if-coa-vs-coa}
+\end{figure}
 
 \section{Experiments}
 
