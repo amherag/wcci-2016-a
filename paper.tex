@@ -194,29 +194,69 @@ Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
 
 % intuitionistic interval
 \begin{equation}
+  \label{intuitionistic-interval}
   0 \leq \mu_{A}(x) + \nu_{A}(x) \leq 1
 \end{equation}
 
 % every ordinary fuzzy set has the form
 \begin{equation}
+  \label{ifs-form}
   \{ \langle x, \mu_{A}(x), 1 - \mu_{A}(x) \rangle | x \in E \}
 \end{equation}
 
 % if
 \begin{equation}
+  \label{fs-as-ifs-if}
   \pi_{A}(x) = 1 - \mu_{A}(x) - \nu_{A}(x)
 \end{equation}
 
 \section{Proposed Method}
 
-How a classic fuzzy set is represented as a ifs. How an intuitionistic
-fuzzy set is represented in this work.
+The method, for now, consists on the procedures and elements
+necessary to construct a basic Intuitionistic Fuzzy Inference System
+(IFIS). This design was completed in order to make comparisons against
+classic fuzzy inference systems, such as Type-1 FIS, Interval
+Type-2 and General Type-2 FIS, and prove that
+the design was viable and able to contribute to better results than
+the classic FISs.
 
-How the non-membership is going to affect the membership (show
-formula). Present both examples (stating the parameters).
+In many works, intuitionistic fuzzy sets (IFSs) are constructed by
+hand, by interviewing experts who assign memberships and
+non-memberships to each of the values of a set (such as in
+\cite{davarzani2013novel}). This work proposes a convenient way of
+creating an IFS, imitating many systems that use Gaussian
+membership functions to facilitate an expert the representation of a
+fuzzy interpretation. An example of an IFS is depicted in
+Fig. \ref{fs-as-ifs}. This IFS represents a classic fuzzy set, as it
+satisfies (\ref{ifs-form}) and (\ref{fs-as-ifs-if}), by representing
+the membership function as the red line, and the non-membership
+function as the blue line. In order to contruct the non-membership
+function, one has to invert a normal Gaussian membership function.
 
-How the coa is calculated (show formula and plot). How the formula can
-be contracted.
+Two convenient ways of modifying the non-membership function and
+satisfy (\ref{intuitionistic-interval}) are as follows: 1) one can set
+the mean and the standard deviation of the Gaussian functions to be
+the same, and only vary the $height$ of the non-membership function,
+as is depicted in \ref{ifs}; and 2) one can set different means and
+standard deviations of the Gaussian membership and non-membership
+functions, but the $height$ of the membership function must be equal
+to $h_{mf} = 1 - h_{nmf}$, as this ensures that
+(\ref{intuitionistic-interval}) is satisfied. To clarify, the $height$
+of the membership function ($h_{mf}$) of an IFS is equal to
+$max(\mu(x))$, and the $height$ of the non-membership function
+($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
+
+
+%\ref{ifs-diff-mu-sd}
+
+% How a classic fuzzy set is represented as a ifs. How an intuitionistic
+% fuzzy set is represented in this work.
+
+% How the non-membership is going to affect the membership (show
+% formula). Present both examples (stating the parameters).
+
+% How the coa is calculated (show formula and plot). How the formula can
+% be contracted.
 
 \begin{figure}[!t]
   \centering
@@ -228,8 +268,16 @@ be contracted.
 \begin{figure}[!t]
   \centering
   \includegraphics[width=2.5in]{ifs}
-  \caption{An Example of an Intuitionistic Fuzzy Set}
+  \caption{An Example of an Intuitionistic Fuzzy Set - Same Mean and SD}
   \label{ifs}
+\end{figure}
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=2.5in]{ifs-diff-mu-sd}
+  \caption{An Example of an Intuitionistic Fuzzy Set - Different Mean
+    and SD}
+  \label{ifs-diff-mu-sd}
 \end{figure}
 
 \begin{figure}[!t]
