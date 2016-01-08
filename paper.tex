@@ -301,7 +301,7 @@ but a smaller standard deviation. A more elaborated example is shown
 in Fig. \ref{if-membership-drastic}, where the parameters of the MF
 are $\mu = 50$, $SD = 15$ and $h = 0.8$, and the parameters of the NMF
 are $\mu = 30$, $SD = 20$ and $h = 0.2$. As can be noted, the
-indeterminancy ($\pi$) is high in this example, which results in a
+indeterminacy ($\pi$) is high in this example, which results in a
 smaller $SD$ for the intuitionistic MF. Moreover, the difference in
 means and standard deviations generates a change of the mean for the
 intuitionistic MF.
@@ -426,13 +426,32 @@ deviations of 15 for the MF, and 20 for the NMF.
 
 \section{Experiments}
 
-Comparisons against juzzy \cite{wagner2013juzzy}
+The purpose of the experiments in this work is to demonstrate that the
+proposed method is viable for performing inference using
+intuitionistic fuzzy sets instead of classic fuzzy sets, i.e., that
+the concepts of intuitionistic membership ($i\mu$) and intuitionistic
+center of area ($iCoA$) enable an extension to traditional fuzzy
+inference systems to support indeterminacy and non-membership. To
+demonstrate this claim, this work presents a series of experiments
+where the proposed method is compared against Type-1 Fuzzy Inference
+Systems (T1-FISs) and Interval Type-2 Fuzzy Inference Systems
+(T2-FISs) with uncertain mean and uncertain standard deviation.
 
-Compare using Mackey-Glass, 100 training, 50 for testing, because it
-took too much time. Genetic algorithm. Present parameters: mean 0-100,
-sd 30-70, mf 1, nmf 0.8-1.0.
+The initial (and ambitious) hypothesis is that a Type-1 Intuitionistic Fuzzy System (T1-IFIS)
+should perform better than a T1-FIS, as it can handle both uncertainty
+and indeterminacy, and it is unclear if an IFIS should perform better
+than a T2-FIS. The experiments presented in this work
+cannot prove this statement profoundly, as the results will only test for a
+single situation, which is the prediction of a subset of the
+Mackey-Glass time series.
 
-The rule base.
+% Comparisons against juzzy \cite{wagner2013juzzy}
+
+% Compare using Mackey-Glass, 100 training, 50 for testing, because it
+% took too much time. Genetic algorithm. Present parameters: mean 0-100,
+% sd 30-70, mf 1, nmf 0.8-1.0.
+
+% The rule base.
 
 \begin{enumerate}
   \item if $t_{0}$ is $A_{1}$ then $p_{t+1}$ is $C_{1}$
