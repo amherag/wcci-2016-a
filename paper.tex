@@ -155,10 +155,10 @@ Types of fuzzy sets. Mendel book \cite{mendel2001uncertain}
 What is a fuzzy inference system?
 
 %Empieza aquí 
+%-- (Amaury) Empezaré aquí
 There can be different types. Type-2 \cite{mendel2002type}, interval
 t2 \cite{liang2000interval} and \cite{mendel2006interval}
 
-%o incluso aquí
 Type-2 is time-consuming. Shadowed sets \cite{pedrycz1998shadowed}
 
 What is a intuitionistic fuzzy set? \cite{atanassov1986intuitionistic}
@@ -167,10 +167,23 @@ What is a intuitionistic fuzzy set? \cite{atanassov1986intuitionistic}
 % (Mario): 
 % Más que definir los elementos, mejor justificar el motivo de la propuesta
 % al parecer es por que Type-2 is time-consuming  
+%   --(Amaury)
+%% -- Sí y no. Hacerlo intuicionista le añade el concepto de
+%% indeterminación. No es un reemplazo del tipo-2, en realidad le
+%% añade cosas. Ahora, sí es parte de la justificación, ya que alguien
+%% puede optar por usar un tipo-1 intuicionista en lugar de un tipo-2
+%% por intervalos, por ejemplo, porque puede ser que gane performance
+%% parecido al de un tipo-2, sin tener el time-consuming de un
+%% tipo-2. Igual puede haber un tipo-2 intuicionista.
+
+
 % Esto si:
 % What is a intuitionistic fuzzy set 
 % Y después justificar, debido a esto, proponemos un FIS intucionista
 % Después lo clasico de como esta dividido el trabajo
+%% (Amaury): Ok! Voy a dar una descripción básica, ya que en la
+%% sección de preliminares es donde explico a fondo
+
 \section{Related Work}
 
 Application of intuitionistic fuzzy sets, bacillus colonies
@@ -178,13 +191,22 @@ recognition \cite{davarzani2013novel}
 
 Alpha cut \cite{sharma2011cut} \cite{sharma2011cutgroups}
 
-intuitionistic inference engine \cite{cornelis2001compositional} %Que diferencias hay?
+intuitionistic inference engine \cite{cornelis2001compositional} %Que
+                                %diferencias hay?
+%% (Amaury): oh, sí voy a poner las diferencias. Nomás puse todo esto
+%% para acordarme :D
 
-implementation of a ifis, castillo \cite{castillo2007intuitionistic} %Por?  
+implementation of a ifis, castillo \cite{castillo2007intuitionistic}
+% Por?  
+%% (A): Porque es lo más cercano a un FIS mamdani intuicionista. al
+%% menos de lo que encontré.
 
 more inference \cite{bustince1995method}
 
 centroid of a type-2 fuzzy-set \cite{karnik2001centroid} %Por?
+%% Porque yo propongo una fórmula para calcular centroide de un IFS, y
+%% como la competencia de un IFS sería un fuzzy set tipo 2, iba a
+%% hablar un poco de eso
 
 and even more inference \cite{marinov2005method}
 
@@ -221,11 +243,20 @@ Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
 
 \section{Proposed Method}
 %(Mario)Is a Method? Extension? Implementation?
+%% (A): No lo había pensado en realidad. Es que siempre le llamo
+%% Proposed Method jajajaaj. Aunque creooo que sí es un método. Es un
+%% método para hacer un sistema de inferencia difusa con conjuntos
+%% difusos intuicionistas
 The method, for now, consists on the procedures and elements
 necessary to construct a basic Intuitionistic Fuzzy Inference System
 (IFIS). %(Mario)Por que basic?
+%% (A): Basic porque no añado que puedas poner OR en las reglas, no
+%% pongo otros métodos de defuzzificación, no pongo más funciones de
+%% membresía (triangulares, etc.). Explicaré eso (y)
 %(Mario)Tal vez enumerarlas? cuales procedures son?
-This design was completed in order to make comparisons against
+%% (A): Los procedures son los que están en el diagramita, y las
+%% explico abajo. Aun así las enumero?
+An implementation was completed in order to make comparisons against
 classic Fuzzy Inference Systems (FISs), such as Type-1 FIS, Interval
 Type-2 and General Type-2 FIS, and prove that
 the design was viable and able to contribute to better results than
@@ -234,11 +265,17 @@ the classic FISs.
 %In order to assess the advantage of our proposal in terms of X
 %a comparassion with  Type-1 FIS, Interval Type-2 and General Type-2 FIS,
 %is presented.
+
+%% (A): Ok, me gusta.
+
 %que se vea que tiene su merito propio, y lo comparamos para
 %evaluar y comprobar su viabilidad
 %Lo de Design me ocasiona ruido, parece que fuera una implementación
 %Si no lo es, tal vez se puede decir algo como:
 %The proposed method was implemented in order to make.
+
+%% (A): Ya lo cambié al principio, pero el design en "prove that the
+%% design was viable" no sé si cambiarlo
 
 In many works, intuitionistic fuzzy sets (IFSs) are constructed manualy,
 by interviewing experts who assign memberships and
@@ -255,6 +292,8 @@ to rotate a normal Gaussian MF by 180˚, and this can be seen as the
 complement of the fuzzy set corresponding to a Gaussian MF.
 %(Mario)Al parecer lo que se está presentando es una manera automatizada de 
 % hacer IFSs? Si  es así, es más facil presentarlo
+%% Si se hacen automatizadamente para poder compararlo con el tipo-1 y
+%% tipo-2, pero no es el objetivo del trabajo.
 
 \begin{figure}[!t]
   \centering
@@ -293,15 +332,21 @@ $height$ of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
 
 The first step of the inference process in a classic FIS (a flow chart
 for the process in an IFIS is given in Fig. \ref{flow-chart}) is to
-determine what membership corresponds to a given input, given a set of
+determine what grade of membership corresponds to a given input, given a set of
 %(Mario)determine what particular membership function corresponds to a 
 % given input, given a set of 
+%% (A): Es grade of membership, perdón. De hecho hay ese error en
+%% otras partes, tengo que cambiarlo.
 MFs. This is straightforward in a classic FIS, as the
 membership to each input is already established in the membership
 fuzzy set. For an IFIS, this work proposes a method to determine a
 membership given a MF and a NMF,
 which is described in (\ref{imembership}), and receives the name of
-$i\mu$ (intuitionistic membership). %(Mario)Creo que este podría ser el titulo
+$i\mu$ (intuitionistic membership). %(Mario)Creo que este podría ser
+                                %el titulo
+%% (A): Para poder hacer un FIS intuicionista, necesité el
+%% intuitionistic membership y el intuitionistic center of area. Cómo
+%% propone el título?
 
 \begin{figure}[!t]
   \centering
@@ -406,7 +451,8 @@ IFSs is shown in Fig. (\ref{ifs-union}).
 
 Finally, one has to defuzzify the aggregation of the $\alpha$-cut 
 consequents, in order to obtain a crisp number that represents
-it. There are a number of methods that can be used to defuzzify a %Aclara que en los tipo Mamdani
+it. There are a number of methods that can be used to defuzzify a
+% Aclara que en los tipo Mamdani %% (A): ahhhhh cierto, cierto
 fuzzy set, but the most frequently found in the literature is the
 Center of Area (CoA), or simply centroid. One can obtain the centroid
 of a classic fuzzy set A by using (\ref{center-of-area}). For an
