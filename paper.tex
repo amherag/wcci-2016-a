@@ -469,13 +469,18 @@ cannot prove this statement profoundly, as the results will only be tested for a
 single situation, which is the prediction of a subset of the
 Mackey-Glass time series.
 
-% Comparisons against juzzy \cite{wagner2013juzzy}
+An implementation of the proposed method was developed using the
+programming language Clojure, and it is freely accessible at
+https://github.com/amherag/intuitionistic-fis. The T1-FISs and
+IT2-FISs were developed using Juzzy \cite{wagner2013juzzy}, which
+implements T1-FIS, IT2-FIS and GT2-FIS in Java.
 
-% Compare using Mackey-Glass, 100 training, 50 for testing, because it
-% took too much time. Genetic algorithm. Present parameters: mean 0-100,
-% sd 30-70, mf 1, nmf 0.8-1.0.
+The Mackey-Glass time series benchmark was used in order to compare
+the performances of each of the FISs, and a Genetic Algorithm (GA) was
+used to optimize each of the FISs, so sub-optimal versions of each of
+the systems were used for the comparison.
 
-% The rule base.
+Every FIS uses the following rule base:
 
 \begin{enumerate}
   \item if $t_{0}$ is $A_{1}$ then $p_{t+1}$ is $C_{1}$
@@ -483,6 +488,43 @@ Mackey-Glass time series.
   \item if $t_{-12}$ is $A_{3}$ then $p_{t+1}$ is $C_{3}$
   \item if $t_{-18}$ is $A_{4}$ then $p_{t+1}$ is $C_{4}$
 \end{enumerate}
+
+where $t_{0}$, $t_{-6}$, $t_{-12}$, and $t_{-18}$ are points in the
+Mackey-Glass time series, $t_{0}$ is the present point, $t_{-6}$ is six
+points earlier than $t_{0}$, $t_{-12}$ is twelve points earlier, and
+$t_{-18}$ is eighteen points earlier. $p_{t+1}$ is the predicted value
+for the point $t_{1}$. $A_{1}$, $A_{2}$, $A_{3}$, and $A_{4}$ are
+antecedents, and $C_{1}$, $C_{2}$, $C_{3}$, and $C_{4}$ are
+consequents.
+
+The search space for the GA consists on eight tuples with the form $\langle
+mean, standard deviation \rangle$ for the T1-FIS, $\langle
+mean, standard deviation, height \rangle$ for the IFIS, $\langle
+mean, standard deviation 1, standard deviation 2 \rangle$ for the
+IT2-FIS with uncertain standard deviation, and $\langle
+mean 1, mean 2, standard deviation \rangle$ for the IT2-FIS with
+uncertain mean, where the means and standard deviations can take
+random real numbers from 0 to 100, and the height can take random real
+numbers from 0.8 to 1. Each of the individuals in the GA consists on
+eight tuples, one for each of the four antecedents and four
+consequents in a FIS. The rule base isn't optimized.
+
+Regarding the parameters of the GA, every FIS is optimized for 20
+generations, using 100 individuals as the initial population. The
+roulette wheel method is used as the selection operator. Five
+children are generated each generation and replace the five least
+fitted individuals in the population. For the mutation operator, each
+individual in the population has a chance of 1\% of suffering an
+alteration, which consists on replacing a list of tuples of arbitrary
+length from the individual with a 
+
+% Comparisons against juzzy \cite{wagner2013juzzy}
+
+% Compare using Mackey-Glass, 100 training, 50 for testing, because it
+% took too much time. Genetic algorithm. Present parameters: mean 0-100,
+% sd 30-70, mf 1, nmf 0.8-1.0.
+
+% The rule base.
 
 \section{Results}
 
