@@ -242,6 +242,7 @@ Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
 \end{equation}
 
 \section{Proposed Method}
+\label{proposed-method}
 %(Mario)Is a Method? Extension? Implementation?
 %% (A): No lo había pensado en realidad. Es que siempre le llamo
 %% Proposed Method jajajaaj. Aunque creooo que sí es un método. Es un
@@ -284,7 +285,7 @@ non-memberships to each of the values of a set (such as in %to each of the membe
 creating an IFS, imitating many systems that use Gaussian
 membership functions (MFs) to facilitate an expert the representation of a
 fuzzy interpretation. An example of an IFS is depicted in
-Fig. \ref{fs-as-ifs}. This IFS represents a classic fuzzy set, as it
+Figure \ref{fs-as-ifs}. This IFS represents a classic fuzzy set, as it
 satisfies (\ref{ifs-form}) and (\ref{fs-as-ifs-if}), by representing
 the MF as the red line, and the non-membership
 function (NMF) as the blue line. In order to contruct the NMF, one has
@@ -306,12 +307,12 @@ Two convenient ways of modifying a NMF and also
 satisfying (\ref{intuitionistic-interval}) are the following: 1) setting
 the mean and the standard deviation of the Gaussian functions to be
 the same, and only vary the $height$ of the NMF,
-as is depicted in Fig. \ref{ifs}; and 2) setting different means and
+as is depicted in Figure \ref{ifs}; and 2) setting different means and
 standard deviations of the Gaussian membership and non-membership
 functions, while keeping the $height$ of the MF equal
 to $h_{mf} = 1 - h_{nmf}$, as this ensures that
 (\ref{intuitionistic-interval}) is satisfied. An example of the latter
-case is shown in Fig. \ref{ifs-diff-mu-sd}. To clarify, the $height$
+case is shown in Figure \ref{ifs-diff-mu-sd}. To clarify, the $height$
 of the MF ($h_{mf}$) of an IFS is equal to $max(\mu(x))$, and the
 $height$ of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
 
@@ -331,7 +332,7 @@ $height$ of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
 \end{figure}
 
 The first step of the inference process in a classic FIS (a flow chart
-for the process in an IFIS is given in Fig. \ref{flow-chart}) is to
+for the process in an IFIS is given in Figure \ref{flow-chart}) is to
 determine what grade of membership corresponds to a given input, given a set of
 %(Mario)determine what particular membership function corresponds to a 
 % given input, given a set of 
@@ -362,12 +363,12 @@ $i\mu$ (intuitionistic membership). %(Mario)Creo que este podría ser
 \end{equation}
 
 A comparison of a MF (red line) against an intuitionistic
-membership function (blueline) is shown in Fig.
+membership function (blueline) is shown in Figure
 \ref{if-membership}. The parameters for both the MF and NMF are $\mu =
 50$ and $SD = 15$, but the $height$ for the NMF is set at $0.5$. This
 results in an intuitionistic MF that appears to have the same mean,
 but a smaller standard deviation. A more elaborated example is shown
-in Fig. \ref{if-membership-drastic}, where the parameters of the MF
+in Figure \ref{if-membership-drastic}, where the parameters of the MF
 are $\mu = 50$, $SD = 15$ and $h = 0.8$, and the parameters of the NMF
 are $\mu = 30$, $SD = 20$ and $h = 0.2$. As can be noted, the
 indeterminacy ($\pi$) is high in this example, which results in a
@@ -400,7 +401,7 @@ but to obtain the $\alpha$-cut in the NMF, (\ref{nmf-alpha-cut}) must
 be followed. In (\ref{nmf-alpha-cut}), the counterintuitive part is
 that one has to find the corresponding $\nu$ for a given
 $\mu_{\alpha}$. An example of an $\alpha$-cut, with $\mu_{\alpha} =
-0.6$, is depicted in Fig. \ref{alpha-cut-example}.
+0.6$, is depicted in Figure \ref{alpha-cut-example}.
 
 \begin{equation}
   \label{alpha-cut}
@@ -432,7 +433,7 @@ union operator over every resulting fuzzy set, in order to aggregate
 the weights of all the consequents. The union operator is defined by
 K. Atanassov \cite{atanassov2013intuitionistic}, for every two IFSs A
 and B, as in (\ref{union-operator}). An example of an union of three
-IFSs is shown in Fig. (\ref{ifs-union}).
+IFSs is shown in Figure (\ref{ifs-union}).
 
 \begin{equation}
   \label{union-operator}
@@ -482,7 +483,7 @@ substituting $(\mu(x_{i}) + \nu(x_{i}))$ by $i\mu_{A}$, one arrives at
     i\mu_{A}(x)}
 \end{equation}
 
-Fig. \ref{if-coa-vs-coa} shows the plot of the defuzzification of
+Figure \ref{if-coa-vs-coa} shows the plot of the defuzzification of
 several IFSs with $CoA$ (red line) and $iCoA$ (blue line), with means set
 from 0 to 100 for the MF, and -20 to 80 for the NMF, and standard
 deviations of 15 for the MF, and 20 for the NMF.
@@ -522,7 +523,8 @@ IT2-FISs were developed using Juzzy \cite{wagner2013juzzy}, which
 implements T1-FIS, IT2-FIS and GT2-FIS in Java.
 
 The Mackey-Glass time series benchmark was used in order to compare
-the performances of each of the FISs, and a Genetic Algorithm (GA) was
+the performances of each of the FISs regarding their time series
+forecasting capabilities, and a Genetic Algorithm (GA) was
 used to optimize each of the FISs, so sub-optimal versions of each of
 the systems were used for the comparison.
 
@@ -543,6 +545,22 @@ for the point $t_{1}$. $A_{1}$, $A_{2}$, $A_{3}$, and $A_{4}$ are
 antecedents, and $C_{1}$, $C_{2}$, $C_{3}$, and $C_{4}$ are
 consequents.
 
+The dataset consists of 100 data points for training, and 50 data
+points for testing. These data points were scaled, such that the
+resulting data points range from 0 to 100. The scaling process was
+performed by applying (\ref{scaling}) over each of the data points in
+the union of the training and testing subsets. The reason behind this
+preprocessing is that the implementation of the IFIS works with inputs
+ranging from 0 to 100, but the Mackey-Glass time series' data points
+range from 0 to about 1.4. This does not alter the measurement of the
+error produced by each of the FISs, as the outputs from the FISs are
+also scaled from 0 to 100.
+
+\begin{equation}
+  \label{scaling}
+  S(p) = 100 \frac{p - min(P)}{max(P) - min(P)}
+\end{equation}
+
 The search space for the GA consists on eight tuples with the form $\langle
 mean, standard deviation \rangle$ for the T1-FIS, $\langle
 mean, standard deviation, height \rangle$ for the IFIS, $\langle
@@ -562,7 +580,34 @@ children are generated each generation and replace the five least
 fitted individuals in the population. For the mutation operator, each
 individual in the population has a chance of 1\% of suffering an
 alteration, which consists on replacing a list of tuples of arbitrary
-length from the individual with a 
+length from the affected individual with a list of tuples of the same
+length from another random individual in the population. Finally, the
+crossover operator takes random genetic material from two individuals
+and creates a child of the same length as its parents. The genetic
+material cannot be repeated, can be of different proportions from each
+of the parents, and the original order isn't preserved. For example,
+given the individuals $A = <1, 2, 3, 4>$ and $B = <5, 6, 7, 8>$, a
+possible child is $C = <8, 1, 7, 5>$. This operator was developed
+because it proved by trial and error that it created more diversity in
+the children than other operators such as one-point or two-point
+crossover.
+
+To obtain the performance of a particular individual, a FIS is created
+using the parameters represented by its genetic material. The created
+FIS is then evaluated with each of the inputs in the training dataset
+(100 sets of four data points: $t_{0}$, $t_{-6}$, $t_{-12}$, and
+$t_{-18}$). The outputs (i.e. the 100 predicted values) for each of
+the inputs are then scaled from 0 to 100, as was mentioned before, so
+a Mean Squared Error (MSE) can be obtained by comparing the predicted values
+to the scaled Mackey-Glass' points ($p_{t+1}$). Individuals with lower
+MSEs are said to be performing better.
+
+Finally, the better performing individual after the 20 generations in
+the GA is evaluated using the training and testing datasets, and the
+resulting MSEs are used as the result of one experiment. In total, 60
+experiments were performed for the T1-IFIS, 60 for the T1-FIS, 100 for
+the IT2-FIS with uncertain mean, and 300 for the IT2-FIS with
+uncertain standard deviation.
 
 % Comparisons against juzzy \cite{wagner2013juzzy}
 
@@ -573,9 +618,26 @@ length from the individual with a
 % The rule base.
 
 \section{Results}
+\label{results}
 
-The results of the experiment along with the code can be found on the 
-following public Github repository: https://github.com/amherag/wcci-2016-a
+The full results (CSV files containing the MSE for each of the
+experiments) along with the Clojure source code used to obtain the
+data presented in this section can be found on the following public
+Github repository: https://github.com/amherag/wcci-2016-a.
+
+Initially, 60 experiments were performed for every FIS, but that
+number of experiments didn't provide enough statistical data for the
+IT2-FISs in order to make a conclusion. For the IT2-FIS with uncertain
+mean, 100 experiments were needed to provide enough statistical data
+to conclude what FIS performed better, and for the IT2-FIS with
+uncertain standard deviation, 300 experiments were needed. To clarify,
+all of the comparisons were against the T1-IFIS.
+
+Table \ref{hypothesis-tests-training} summarizes the results obtained
+for each of the FISs in the training stage, as well as the t-value
+obtained when calculating a Student's t-test. The same structure is
+followed in Table \ref{hypothesis-tests-testing}, which shows the
+results obtained for each of the FISs in the testing stage.
 
 \begin{table}[!t]
   \renewcommand{\arraystretch}{1.3}
@@ -586,13 +648,13 @@ following public Github repository: https://github.com/amherag/wcci-2016-a
     \hline
     Method & $\mu_{TR}$ & $SD_{TR}$ & $n$ & t-Value\\
     \hline
-    T1 iFIS & 89.50 & 25.36 & 60 & \\
+    T1-IFIS & 89.50 & 25.36 & 60 & \\
     \hline
-    T1 FIS & 108.05 & 23.47 & 60 & -4.1584 \\
+    T1-FIS & 108.05 & 23.47 & 60 & -4.1584 \\
     \hline
-    IT2 FIS (\(\mu\)) & 112.56 & 29.16 & 100 & -5.2597 \\
+    IT2-FIS (\(\mu\)) & 112.56 & 29.16 & 100 & -5.2597 \\
     \hline
-    IT2 FIS (SD) & 102.31 & 26.08 & 300 & -3.5548 \\
+    IT2-FIS (SD) & 102.31 & 26.08 & 300 & -3.5548 \\
     \hline
   \end{tabular}
 \end{table}
@@ -600,13 +662,13 @@ following public Github repository: https://github.com/amherag/wcci-2016-a
 \begin{table}[!t]
   \renewcommand{\arraystretch}{1.3}
   \caption{Hypothesis Tests for the Testing Stage}
-  \label{hypothesis-tests}
+  \label{hypothesis-tests-testing}
   \centering
   \begin{tabular}{|c|c|c|c|c|c|}
     \hline
     Method & $\mu_{TS}$ & $SD_{TS}$ & $n$ & t-Value\\
     \hline
-    T1-iFIS & 160.99 & 65.70 & 60 & \\
+    T1-IFIS & 160.99 & 65.70 & 60 & \\
     \hline
     T1-FIS & 194.97 & 71.97 & 60 & -2.7010 \\
     \hline
@@ -619,16 +681,36 @@ following public Github repository: https://github.com/amherag/wcci-2016-a
 
 \section{Conclusion}
 
-This work mainly focuses on proving that the design is viable, but it
-also proves that at least in some cases the intuitionistic fis can
-out-perform the t1 and t2.
+As the results in Section \ref{results} demonstrate, the T1-IFIS
+outperforms the T1-FIS, IT2-FIS with uncertain mean, and IT2-FIS with
+uncertain standard deviation. These results sustain the claim that the
+intuitionistic grade of membership ($i\mu$), and the intuitionistic center
+of area ($iCoA$), proposed in Section \ref{proposed-method} allows the
+creation of a T1-IFIS that can perform better than a classic T1-FIS
+and an IT2-FIS.
+
+Several derivative works can result from the ideas presented in this paper. For
+example, the proposed T1-IFIS can be tested using several
+benchmarks, other than the Mackey-Glass time series. Also, this work
+should inspire the creation of Type-2 Intuitionistic Fuzzy Inference
+Systems (both the interval and general types).
 
 \section{Future Work}
 
-We want to create a toolbox such as \cite{castro2007interval}
-We want to experiment with other data sets.
-We want to speed up the algorithm.
-We want to experiment with generalized type-2.
+The current implementation of the proposed method lacks a Graphical User
+Interface (GUI) where a research can conveniently design an IFIS, such as
+Matlab's Type-1 Fuzzy Logic toolbox, or the Type-2 Fuzzy Logic toolbox
+developed by J. R. Castro $et al.$ \cite{castro2007interval}. The
+development of a GUI is planned as a next step, so researchers without
+a background in the programming langague Clojure can use the
+implementation for their works.
+
+In theory, an implementation of the proposed method should be faster
+than T2-FISs, and slower than T1-FISs (although this difference should
+be negligible), but the current implementation performs worse, in
+terms of time, than a general T2-FIS. This has to be solved in order
+to speed up the experiments conducted, and to encourage other
+researchers to use the implementation.
 
 \bibliographystyle{IEEEtran}
 \bibliography{paper}
