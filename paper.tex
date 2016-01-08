@@ -154,14 +154,23 @@ Types of fuzzy sets. Mendel book \cite{mendel2001uncertain}
 
 What is a fuzzy inference system?
 
+%Empieza aquí 
 There can be different types. Type-2 \cite{mendel2002type}, interval
 t2 \cite{liang2000interval} and \cite{mendel2006interval}
 
+%o incluso aquí
 Type-2 is time-consuming. Shadowed sets \cite{pedrycz1998shadowed}
 
 What is a intuitionistic fuzzy set? \cite{atanassov1986intuitionistic}
 \cite{atanassov2003intuitionistic} \cite {despi2013generalised}
 
+% (Mario): 
+% Más que definir los elementos, mejor justificar el motivo de la propuesta
+% al parecer es por que Type-2 is time-consuming  
+% Esto si:
+% What is a intuitionistic fuzzy set 
+% Y después justificar, debido a esto, proponemos un FIS intucionista
+% Después lo clasico de como esta dividido el trabajo
 \section{Related Work}
 
 Application of intuitionistic fuzzy sets, bacillus colonies
@@ -169,13 +178,13 @@ recognition \cite{davarzani2013novel}
 
 Alpha cut \cite{sharma2011cut} \cite{sharma2011cutgroups}
 
-intuitionistic inference engine \cite{cornelis2001compositional}
+intuitionistic inference engine \cite{cornelis2001compositional} %Que diferencias hay?
 
-implementation of a ifis, castillo \cite{castillo2007intuitionistic}
+implementation of a ifis, castillo \cite{castillo2007intuitionistic} %Por?  
 
 more inference \cite{bustince1995method}
 
-centroid of a type-2 fuzzy-set \cite{karnik2001centroid}
+centroid of a type-2 fuzzy-set \cite{karnik2001centroid} %Por?
 
 and even more inference \cite{marinov2005method}
 
@@ -211,18 +220,29 @@ Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
 \end{equation}
 
 \section{Proposed Method}
-
+%(Mario)Is a Method? Extension? Implementation?
 The method, for now, consists on the procedures and elements
 necessary to construct a basic Intuitionistic Fuzzy Inference System
-(IFIS). This design was completed in order to make comparisons against
+(IFIS). %(Mario)Por que basic?
+%(Mario)Tal vez enumerarlas? cuales procedures son?
+This design was completed in order to make comparisons against
 classic Fuzzy Inference Systems (FISs), such as Type-1 FIS, Interval
 Type-2 and General Type-2 FIS, and prove that
 the design was viable and able to contribute to better results than
 the classic FISs.
+%(Mario)Es el proposito del diseño comparar? Creo que puedes decir mejor algo como:
+%In order to assess the advantage of our proposal in terms of X
+%a comparassion with  Type-1 FIS, Interval Type-2 and General Type-2 FIS,
+%is presented.
+%que se vea que tiene su merito propio, y lo comparamos para
+%evaluar y comprobar su viabilidad
+%Lo de Design me ocasiona ruido, parece que fuera una implementación
+%Si no lo es, tal vez se puede decir algo como:
+%The proposed method was implemented in order to make.
 
-In many works, intuitionistic fuzzy sets (IFSs) are constructed by
-hand, by interviewing experts who assign memberships and
-non-memberships to each of the values of a set (such as in
+In many works, intuitionistic fuzzy sets (IFSs) are constructed manualy,
+by interviewing experts who assign memberships and
+non-memberships to each of the values of a set (such as in %to each of the members of a set?
 \cite{davarzani2013novel}). This work proposes a convenient way of
 creating an IFS, imitating many systems that use Gaussian
 membership functions (MFs) to facilitate an expert the representation of a
@@ -233,6 +253,8 @@ the MF as the red line, and the non-membership
 function (NMF) as the blue line. In order to contruct the NMF, one has
 to rotate a normal Gaussian MF by 180˚, and this can be seen as the
 complement of the fuzzy set corresponding to a Gaussian MF.
+%(Mario)Al parecer lo que se está presentando es una manera automatizada de 
+% hacer IFSs? Si  es así, es más facil presentarlo
 
 \begin{figure}[!t]
   \centering
@@ -241,13 +263,13 @@ complement of the fuzzy set corresponding to a Gaussian MF.
   \label{fs-as-ifs}
 \end{figure}
 
-Two convenient ways of modifying the NMF and
-satisfy (\ref{intuitionistic-interval}) are as follows: 1) one can set
+Two convenient ways of modifying a NMF and also
+satisfying (\ref{intuitionistic-interval}) are the following: 1) setting
 the mean and the standard deviation of the Gaussian functions to be
 the same, and only vary the $height$ of the NMF,
-as is depicted in Fig. \ref{ifs}; and 2) one can set different means and
+as is depicted in Fig. \ref{ifs}; and 2) setting different means and
 standard deviations of the Gaussian membership and non-membership
-functions, but the $height$ of the MF must be equal
+functions, while keeping the $height$ of the MF equal
 to $h_{mf} = 1 - h_{nmf}$, as this ensures that
 (\ref{intuitionistic-interval}) is satisfied. An example of the latter
 case is shown in Fig. \ref{ifs-diff-mu-sd}. To clarify, the $height$
@@ -269,15 +291,17 @@ $height$ of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
   \label{ifs-diff-mu-sd}
 \end{figure}
 
-The first step in an inference process in a classic FIS (a flow chart
+The first step of the inference process in a classic FIS (a flow chart
 for the process in an IFIS is given in Fig. \ref{flow-chart}) is to
 determine what membership corresponds to a given input, given a set of
+%(Mario)determine what particular membership function corresponds to a 
+% given input, given a set of 
 MFs. This is straightforward in a classic FIS, as the
 membership to each input is already established in the membership
 fuzzy set. For an IFIS, this work proposes a method to determine a
 membership given a MF and a NMF,
 which is described in (\ref{imembership}), and receives the name of
-$i\mu$ (intuitionistic membership).
+$i\mu$ (intuitionistic membership). %(Mario)Creo que este podría ser el titulo
 
 \begin{figure}[!t]
   \centering
@@ -320,7 +344,7 @@ intuitionistic MF.
   \label{if-membership-drastic}
 \end{figure}
 
-The next step in the inference process is to perform an $\alpha$-cut
+The next step in the inference process is to perform an $\alpha$-cut % (Mario) La del FIS? aclaralo
 on the associated consequents to the antecedents that are activated by
 the inputs. In a classic FIS, this process is straightforward, as the
 memeberships in a fuzzy set representing a consequent are ``cut'' by
@@ -380,9 +404,9 @@ IFSs is shown in Fig. (\ref{ifs-union}).
   \label{ifs-union}
 \end{figure}
 
-Finally, one has to defuzzify the aggregation of the $\alpha$-cut
+Finally, one has to defuzzify the aggregation of the $\alpha$-cut 
 consequents, in order to obtain a crisp number that represents
-it. There are a number of methods that can be used to defuzzify a
+it. There are a number of methods that can be used to defuzzify a %Aclara que en los tipo Mamdani
 fuzzy set, but the most frequently found in the literature is the
 Center of Area (CoA), or simply centroid. One can obtain the centroid
 of a classic fuzzy set A by using (\ref{center-of-area}). For an
@@ -441,7 +465,7 @@ The initial (and ambitious) hypothesis is that a Type-1 Intuitionistic Fuzzy Sys
 should perform better than a T1-FIS, as it can handle both uncertainty
 and indeterminacy, and it is unclear if an IFIS should perform better
 than a T2-FIS. The experiments presented in this work
-cannot prove this statement profoundly, as the results will only test for a
+cannot prove this statement profoundly, as the results will only be tested for a
 single situation, which is the prediction of a subset of the
 Mackey-Glass time series.
 
@@ -504,7 +528,8 @@ length from the individual with a
 
 \section{Results}
 
-Results can be found on https://github.com/amherag/wcci-2016-a
+The results of the experiment along with the code can be found on the 
+following public Github repository: https://github.com/amherag/wcci-2016-a
 
 \begin{table}[!t]
   \renewcommand{\arraystretch}{1.3}
