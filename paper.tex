@@ -465,18 +465,17 @@ intuitionistic MF.
   \label{if-membership-drastic}
 \end{figure}
 
-The next step in the inference process is to perform an $\alpha$-cut % (Mario) La del FIS? aclaralo
-on the associated consequents to the antecedents that are activated by
-the inputs. In a classic FIS, this process is straightforward, as the
-memeberships in a fuzzy set representing a consequent are ``cut'' by
-following (\ref{alpha-cut}) for every element in a fuzzy set
-representing a consequent. In an intuitionistic MF, one can follow
-the same procedure in order to obtain the $\alpha$-cut in the MF part,
-but to obtain the $\alpha$-cut in the NMF, (\ref{nmf-alpha-cut}) must
-be followed. In (\ref{nmf-alpha-cut}), the counterintuitive part is
-that one has to find the corresponding $\nu$ for a given
-$\mu_{\alpha}$. An example of an $\alpha$-cut, with $\mu_{\alpha} =
-0.6$, is depicted in Figure \ref{alpha-cut-example}.
+The next step in the inference process is to perform an $\alpha$-cut % (Mario)
+La del FIS? aclaralo on the associated consequents to the antecedents that are
+activated by the inputs. In a classic FIS, this process is straightforward, as
+the memeberships in a fuzzy set representing a consequent are ``cut'' by
+following (\ref{alpha-cut}) for every element in a fuzzy set representing a
+consequent. In an intuitionistic MF, one can follow the same procedure in order
+to obtain the $\alpha$-cut in the MF part, but to obtain the $\alpha$-cut in
+the NMF, (\ref{nmf-alpha-cut}) must be followed. In (\ref{nmf-alpha-cut}), the
+counterintuitive part is that one has to find the corresponding $\nu$ for a
+given $\mu_{\alpha}$. An example of an $\alpha$-cut, with $\mu_{\alpha} = 0.6$,
+is depicted in Figure \ref{alpha-cut-example}.
 
 \begin{equation}
   \label{alpha-cut}
@@ -528,7 +527,7 @@ IFSs is shown in Figure (\ref{ifs-union}).
 Finally, one has to defuzzify the aggregation of the $\alpha$-cut 
 consequents, in order to obtain a crisp number that represents
 it. There are a number of methods that can be used to defuzzify a
-% Aclara que en los tipo Mamdani %% (A): ahhhhh cierto, cierto
+% Aclara que en los tipo Mamdany %% (A): ahhhhh cierto, cierto
 fuzzy set, but the most frequently found in the literature is the
 Center of Area (CoA), or simply centroid. One can obtain the centroid
 of a classic fuzzy set A by using (\ref{center-of-area}). For an
@@ -603,6 +602,7 @@ the performances of each of the FISs regarding their time series
 forecasting capabilities, and a Genetic Algorithm (GA) was
 used to optimize each of the FISs, so sub-optimal versions of each of
 the systems were used for the comparison.
+%M: En esta seccion creo que se
 
 Every FIS uses the following rule base:
 
