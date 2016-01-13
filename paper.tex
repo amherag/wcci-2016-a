@@ -137,7 +137,16 @@
 \maketitle
 
 \begin{abstract}
-
+The concepts of intuitionistic membership, and intuitionistic center of
+area are proposed in this work, in order to propose a novel method for
+implementing an intuitionistic fuzzy inference system. The proposed
+method was implemented and compared against type-1 fuzzy inference
+systems and interval type-2 fuzzy inference systems, with uncertain
+means and uncertain standard deviations, by using the
+Mackey-Glass time series benchmark. A genetic algorithm was used to
+optimize the parameters of each of the methods being compared, and the
+results show that the intuitionistic fuzzy inference system performs
+better than the other methods.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -146,23 +155,87 @@
 
 \section{Introduction}
 
-What is a fuzzy set? \cite{zadeh1965fuzzy}
+Fuzzy sets were created as an extension to traditional sets, with
+uncertainty in mind, by L. A. Zadeh in 1965 \cite{zadeh1965fuzzy}. This uncertainty allows an
+element to be associated with a grade of membership that indicates
+how much that element belongs to a set, i.e., instead of
+belonging to a set (true, or 1), or not belonging (false, or 0),
+such element can belong in a grade from 0 to 1, and this is known as
+fuzzy logic \cite{klir1995fuzzy}.
 
-What is fuzzy logic? \cite{klir1995fuzzy}
+A derivation of logical conclusions can be performed by using premises
+that are assumed to be true, and this is known as inference, in
+traditional logic. The same
+technique can be extended to use fuzzy premises. In this case, all the
+premises hold a grade of truthiness, and a fuzzy conclusion is derived
+from the process. A popular method for performing such fuzzy inferences is a
+Mamdani Fuzzy Inference System (FIS) \cite{mamdani1975experiment},
+where the inputs are associated with fuzzy sets, and the outputs are
+fuzzy sets themselves, which can be converted to crisp numbers
+(this process is usually called \textit{defuzzification}). Other types of
+fuzzy inference engines exist, such as Takagi-Sugeno-Kang  (TSK)
+\cite{takagi1985fuzzy} and Tsukamoto \cite{tsukamoto1979approach}.
 
-Types of fuzzy sets. Mendel book \cite{mendel2001uncertain}
+Fuzzy sets were initially criticized because they were said to
+not be able to appropriately represent uncertainty. This problem was
+addressed by L. A. Zadeh in 1975 \cite{zadeh1975concept} by creating the
+concept of Type-2 Fuzzy Sets (T2-FS). This extension to type-1 fuzzy sets allowed the creation of
+type-2 fuzzy inference systems (T2-FIS) \cite{mendel2002type}, and those systems that used the
+traditional fuzzy sets are now called Type-1 Fuzzy Inference Systems
+(T1-FIS). T2-FIS have been proved to work better than T1-FIS in many
+situations, often problems that involve high levels of uncertainty, such as
+noisy data.
 
-What is a fuzzy inference system?
+Another extension to fuzzy sets, called Intuitionistic Fuzzy Sets
+(IFS), was proposed by K. T. Atanassov
+\cite{atanassov1986intuitionistic}. This extension adds the concepts
+of indeterminacy and non-membership to traditional fuzzy sets. In
+traditional fuzzy sets, the non-membership of an element is always the
+complement of the membership, but in an IFS, the non-membership can be
+represented by lower values (a deeper explanation of IFS is given in
+Section \ref{preliminaries}). Whenever the sum of the membership and
+the non-membership is less than 1, indeterminacy emerges, which
+represents the grade of uncertainty of an element of being or not
+being a member of a given set, with certain grade of membership. The
+concept of indeterminacy allows an expression such as ``This is
+somewhat tall, although I'm not very sure about my opinion.''
 
-%Empieza aquí 
-%-- (Amaury) Empezaré aquí
-There can be different types. Type-2 \cite{mendel2002type}, interval
-t2 \cite{liang2000interval} and \cite{mendel2006interval}
+The use of IFSs in a traditional FIS should enable the handling of more
+uncertainty, and one could prefer an Intuitionistic FIS (IFIS) to obtain
+better accuracies without sacrificing time performance, as
+inferences in a T2-FIS are very time consuming compared to a
+T1-FIS. This is a consequence of the complex type
+reducing procedure that is involved in the defuzzification stage in a
+T2-FIS \cite{mendel2001uncertain}. Several improvements to the
+algorithms involved in the inference process in a T2-FIS have been proposed
+to alleviate this problem, such as the Karnik-Mendel algorithm
+\cite{wu2009enhanced} and shadowed sets
+\cite{pedrycz1998shadowed}. Nevertheless, a T2-FIS is usually several
+times slower than a T1-FIS. Because of this time performance impact,
+many works that require handling more uncertainty than a T1-FIS
+use a particular case of T2-FIS, the Interval T2-FIS (IT2-FIS)
+\cite{mendel2006interval}, which is faster than a general T2-FIS. A Type-1
+Intuitionistic FIS (T1-IFIS) should perform better than a T1-FIS in terms
+of accuracy (in problems involving data with high levels of
+uncertainty), and should be faster than a T2-FIS. Furthermore, IFSs
+can be implemented as part of a T2-FIS, giving as a result a T2-IFIS.
 
-Type-2 is time-consuming. Shadowed sets \cite{pedrycz1998shadowed}
+This work proposes a method to implement IFSs in a Mamdani FIS to
+obtain a Mamdani IFIS, and presents results that prove the method as a
+viable design to implement an effective IFIS. The reader can find
+related works in Section \ref{related-work}. Some preliminaries are
+explained in Section \ref{preliminaries} in order to better comprehend
+the proposed method in Section \ref{proposed-method}. Experiments were
+conducted to prove the viability of the proposed method, and they are
+explained in Section \ref{experiments}. The results of the conducted
+experiments are shown and explained in Section \ref{results}, and a
+conclusion about the results is presented in Section
+\ref{conclusion}. Finally, a description of the future work can be
+found in Section \ref{future-work}.
 
-What is a intuitionistic fuzzy set? \cite{atanassov1986intuitionistic}
-\cite{atanassov2003intuitionistic} \cite {despi2013generalised}
+
+%What is a intuitionistic fuzzy set? \cite{atanassov1986intuitionistic}
+%\cite{atanassov2003intuitionistic} \cite {despi2013generalised}
 
 % (Mario): 
 % Más que definir los elementos, mejor justificar el motivo de la propuesta
@@ -185,6 +258,7 @@ What is a intuitionistic fuzzy set? \cite{atanassov1986intuitionistic}
 %% sección de preliminares es donde explico a fondo
 
 \section{Related Work}
+\label{related-work}
 
 Application of intuitionistic fuzzy sets, bacillus colonies
 recognition \cite{davarzani2013novel}
@@ -213,6 +287,7 @@ and even more inference \cite{marinov2005method}
 Intuitionistic control washing machines \cite{akram2014intuitionistic}
 
 \section{Preliminaries}
+\label{preliminaries}
 
 Define in more detail intuitionistic fuzzy sets. 
 
@@ -306,15 +381,15 @@ complement of the fuzzy set corresponding to a Gaussian MF.
 Two convenient ways of modifying a NMF and also
 satisfying (\ref{intuitionistic-interval}) are the following: 1) setting
 the mean and the standard deviation of the Gaussian functions to be
-the same, and only vary the $height$ of the NMF,
+the same, and only vary the \textit{height} of the NMF,
 as is depicted in Figure \ref{ifs}; and 2) setting different means and
 standard deviations of the Gaussian membership and non-membership
-functions, while keeping the $height$ of the MF equal
+functions, while keeping the \textit{height} of the MF equal
 to $h_{mf} = 1 - h_{nmf}$, as this ensures that
 (\ref{intuitionistic-interval}) is satisfied. An example of the latter
-case is shown in Figure \ref{ifs-diff-mu-sd}. To clarify, the $height$
+case is shown in Figure \ref{ifs-diff-mu-sd}. To clarify, the \textit{height}
 of the MF ($h_{mf}$) of an IFS is equal to $max(\mu(x))$, and the
-$height$ of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
+\textit{height} of the NMF ($h_{nmf}$) of an IFS is equal to $max(\nu(x))$.
 
 \begin{figure}[!t]
   \centering
@@ -365,7 +440,7 @@ $i\mu$ (intuitionistic membership). %(Mario)Creo que este podría ser
 A comparison of a MF (red line) against an intuitionistic
 membership function (blueline) is shown in Figure
 \ref{if-membership}. The parameters for both the MF and NMF are $\mu =
-50$ and $SD = 15$, but the $height$ for the NMF is set at $0.5$. This
+50$ and $SD = 15$, but the \textit{height} for the NMF is set at \textit{0.5}. This
 results in an intuitionistic MF that appears to have the same mean,
 but a smaller standard deviation. A more elaborated example is shown
 in Figure \ref{if-membership-drastic}, where the parameters of the MF
@@ -496,6 +571,7 @@ deviations of 15 for the MF, and 20 for the NMF.
 \end{figure}
 
 \section{Experiments}
+\label{experiments}
 
 The purpose of the experiments in this work is to demonstrate that the
 proposed method is viable for performing inference using
@@ -536,7 +612,6 @@ Every FIS uses the following rule base:
   \item if $t_{-12}$ is $A_{3}$ then $p_{t+1}$ is $C_{3}$
   \item if $t_{-18}$ is $A_{4}$ then $p_{t+1}$ is $C_{4}$
 \end{enumerate}
-
 where $t_{0}$, $t_{-6}$, $t_{-12}$, and $t_{-18}$ are points in the
 Mackey-Glass time series, $t_{0}$ is the present point, $t_{-6}$ is six
 points earlier than $t_{0}$, $t_{-12}$ is twelve points earlier, and
@@ -633,53 +708,97 @@ to conclude what FIS performed better, and for the IT2-FIS with
 uncertain standard deviation, 300 experiments were needed. To clarify,
 all of the comparisons were against the T1-IFIS.
 
-Table \ref{hypothesis-tests-training} summarizes the results obtained
+Table \ref{first-hypothesis-tests-training} summarizes the results obtained
 for each of the FISs in the training stage, as well as the t-value
 obtained when calculating a Student's t-test. The same structure is
-followed in Table \ref{hypothesis-tests-testing}, which shows the
+followed in Table \ref{first-hypothesis-tests-testing}, which shows the
 results obtained for each of the FISs in the testing stage.
 
 \begin{table}[!t]
   \renewcommand{\arraystretch}{1.3}
-  \caption{Hypothesis Tests for the Training Stage}
-  \label{hypothesis-tests-training}
+  \caption{Hypothesis Tests for the Training Stage, First Experiment}
+  \label{first-hypothesis-tests-training}
   \centering
   \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    Method & $\mu_{TR}$ & $SD_{TR}$ & $n$ & t-Value\\
+    Method & $\mu_{TR}$ & $SD_{TR}$ & $n$ & t-Value & CI \\
     \hline
-    T1-IFIS & 89.50 & 25.36 & 60 & \\
+    T1-IFIS & 89.50 & 25.36 & 60 &  & \\
     \hline
-    T1-FIS & 108.05 & 23.47 & 60 & -4.1584 \\
+    T1-FIS & 108.05 & 23.47 & 60 & -4.1584 & > 99.9\% \\
     \hline
-    IT2-FIS (\(\mu\)) & 112.56 & 29.16 & 100 & -5.2597 \\
+    IT2-FIS (\(\mu\)) & 112.56 & 29.16 & 100 & -5.2597 & > 99.9\% \\
     \hline
-    IT2-FIS (SD) & 102.31 & 26.08 & 300 & -3.5548 \\
+    IT2-FIS (SD) & 102.31 & 26.08 & 300 & -3.5548 & > 99.9\% \\
+    \hline
+  \end{tabular}
+\end{table}
+
+% con 400
+\begin{table}[!t]
+  \renewcommand{\arraystretch}{1.3}
+  \caption{Hypothesis Tests for the Training Stage, Second Experiment}
+  \label{second-hypothesis-tests-training}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    Method & $\mu_{TR}$ & $SD_{TR}$ & $n$ & t-Value & CI\\
+    \hline
+    T1-IFIS & 76.22 & 16.90 & 400 & & \\
+    \hline
+    T1-FIS & 85.69 & 19.68 & 400 & -7.3013 & > 99.9\% \\
+    \hline
+    IT2-FIS (\(\mu\)) & 85.93 & 19.12 & 400 & -7.6102 & > 99.9\%\\
+    \hline
+    IT2-FIS (SD) & 99.78 & 19.04 & 400 & -18.508 & > 99.9\% \\
     \hline
   \end{tabular}
 \end{table}
 
 \begin{table}[!t]
   \renewcommand{\arraystretch}{1.3}
-  \caption{Hypothesis Tests for the Testing Stage}
-  \label{hypothesis-tests-testing}
+  \caption{Hypothesis Tests for the Testing Stage, First Experiment}
+  \label{first-hypothesis-tests-testing}
   \centering
   \begin{tabular}{|c|c|c|c|c|c|}
     \hline
-    Method & $\mu_{TS}$ & $SD_{TS}$ & $n$ & t-Value\\
+    Method & $\mu_{TS}$ & $SD_{TS}$ & $n$ & t-Value & CI \\
     \hline
-    T1-IFIS & 160.99 & 65.70 & 60 & \\
+    T1-IFIS & 160.99 & 65.70 & 60 &  & \\
     \hline
-    T1-FIS & 194.97 & 71.97 & 60 & -2.7010 \\
+    T1-FIS & 194.97 & 71.97 & 60 & -2.7010 & > 99.2\%\\
     \hline
-    IT2-FIS (\(\mu\)) & 192.31 & 105.75 & 100 & -2.3104 \\
+    IT2-FIS (\(\mu\)) & 192.31 & 105.75 & 100 & -2.3104 & > 97.8\% \\
     \hline
-    IT2-FIS (SD) & 178.63 & 99.70 & 300 & -1.7209 \\
+    IT2-FIS (SD) & 178.63 & 99.70 & 300 & -1.7209 & > 91.4\% \\
+    \hline
+  \end{tabular}
+\end{table}
+
+
+% con 400
+\begin{table}[!t]
+  \renewcommand{\arraystretch}{1.3}
+  \caption{Hypothesis Tests for the Testing Stage, Second Experiment}
+  \label{second-hypothesis-tests-testing}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    Method & $\mu_{TS}$ & $SD_{TS}$ & $n$ & t-Value & CI\\
+    \hline
+    T1-IFIS & 139.38 & 95.75 & 400 &  &  \\
+    \hline
+    T1-FIS & 152.26 & 126.47 & 400 & -1.6239 & > 89.4\% \\
+    \hline
+    IT2-FIS (\(\mu\)) & 154.37 & 119.92 & 400 & -1.9536 & > 94.8\% \\
+    \hline
+    IT2-FIS (SD) & 175.04 & 136.91 & 400 & -4.1492 & > 99.9\%\\
     \hline
   \end{tabular}
 \end{table}
 
 \section{Conclusion}
+\label{conclusion}
 
 As the results in Section \ref{results} demonstrate, the T1-IFIS
 outperforms the T1-FIS, IT2-FIS with uncertain mean, and IT2-FIS with
@@ -696,11 +815,12 @@ should inspire the creation of Type-2 Intuitionistic Fuzzy Inference
 Systems (both the interval and general types).
 
 \section{Future Work}
+\label{future-work}
 
 The current implementation of the proposed method lacks a Graphical User
 Interface (GUI) where a research can conveniently design an IFIS, such as
 Matlab's Type-1 Fuzzy Logic toolbox, or the Type-2 Fuzzy Logic toolbox
-developed by J. R. Castro $et al.$ \cite{castro2007interval}. The
+developed by J. R. Castro \textit{et al.} \cite{castro2007interval}. The
 development of a GUI is planned as a next step, so researchers without
 a background in the programming langague Clojure can use the
 implementation for their works.
