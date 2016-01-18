@@ -36,7 +36,7 @@
 % package with the nocompress option which is supported by cite.sty v4.0
 % and later.
 
-
+\usepackage{flushend}
 
 
 \usepackage[pdftex]{graphicx}
@@ -269,46 +269,64 @@ proposed by K. T. Atanassov, is described in
 \end{aligned}
 \end{equation}
 
-C. Cornelis and G. Deschrijver \cite{cornelis2001compositional}
-generalize the Compositional Rule of Inference to IFSs
-%intuitionistic inference engine \cite{cornelis2001compositional} %Que
-                                %diferencias hay?
+Implications using fuzzy sets can be extended to compositions of rules of
+inference. A work that describes the compositional rule of inference
+using fuzzy sets, and the extension of the compositional rule of
+inference using IFSs, is the one by C. Cornelis and G. Deschrijver
+\cite{cornelis2001compositional}.
 
-A method for inference in approximate reasoning based on normal
-intuitionistic fuzzy sets \cite{bustince1995method}
+H. Bustince et al. \cite{bustince1995method} propose a method to
+perform inference using IFSs by using t-norm and t-conorm based on max
+and min operators. This work resembles the foundations of a Mamdani
+FIS. Another example is the work by M. Marinov and K. T. Atanassov
+\cite{marinov2005method}, which implements an electronic circuit
+capable of performing intuitionistic fuzzy inference, and describes
+the computer pseudo-code that must be followed in order to implement
+the method.
 
+The closest to a Mamdani IFIS that the authors of this work could
+find, was the work by O. Castillo et
+al. \cite{castillo2007intuitionistic}. The authors implement an IFIS
+by considering the membership functions and the non-membership
+functions as traditional fuzzy sets. In the end, the output of the FIS
+is calculated as a linear combination of the two fuzzy sets, by using
+(\ref{linear-combination})
 
-A Method and Electronic Circuit for Intuitionistic Fuzzy Inference
-\cite{marinov2005method}
-An intuitionistic fuzzy system for time series analysis in plant
-monitoring and diagnosis \cite{castillo2007intuitionistic}
+\begin{equation}
+  \label{linear-combination}
+  IFS = (1-\pi)FS_{\mu} + \pi FS_{v}
+\end{equation}
 
-% Applications
-Intuitionistic fuzzy sets in some medical applications
-\cite{szmidt2001intuitionistic}
-Switching between type-2 fuzzy sets and intuitionistic fuzzy sets: an
-application in medical diagnosis \cite{own2009switching}
-Intuitionistic preference relations and their application in group
-decision making \cite{xu2007intuitionistic}
-An application of intuitionistic fuzzy information for handwritten
-Arabic word recognition \cite{baccour2008application}
-Application of intuitionistic fuzzy sets, bacillus colonies
-recognition \cite{davarzani2013novel}
+The problem with this approach is that an IFS is being defined as two
+separate traditional fuzzy sets, and the non-membership or the
+indeterminacy is not affecting the membership of an element in a
+meaningful way. In contrast, the present work proposes the use of the
+intuitionistic membership in order to affect the firing strength that
+will activate a consequent, and the use of the intuitionistic center
+of area for obtaining a defuzzification of the aggregation of the
+consequents.
 
+Another proposal that is being made indirectly in this work, is the
+way in which an IFS is represented. Most works represent an IFS as a
+lattice (as in \cite{deschrijver2004representation} and
+\cite{despi2013generalised}), but this work proposes a variation of the
+standard way of representing a fuzzy set. Some works use
+this way of representing an IFS (as in
+\cite{davarzani2013novel}). The proposal in this paper is to use the
+same convenient membership functions usually found in the design of
+traditional FISs, such as triangular or Gaussian membership functions,
+but using the complement of these functions to represent the
+non-membership function.
 
-
-
-
-% Por?  
-%% (A): Porque es lo más cercano a un FIS mamdani intuicionista. al
-%% menos de lo que encontré.
-
-%%%%%%%%Alpha cut \cite{sharma2011cut} \cite{sharma2011cutgroups}
-
-%%%%%%%%centroid of a type-2 fuzzy-set \cite{karnik2001centroid} %Por?
-%% Porque yo propongo una fórmula para calcular centroide de un IFS, y
-%% como la competencia de un IFS sería un fuzzy set tipo 2, iba a
-%% hablar un poco de eso
+The proposed method is tested by using the Mackey-Glass time series
+benchmark, and therefore, an application of an IFIS is to use it for
+forecasting tasks. Other fields where IFSs have been used are: medical
+applications, as in the works by E. Szmidt and K. Janusz
+\cite{szmidt2001intuitionistic}, H. Davarzani and
+K. M. Amiri\cite{davarzani2013novel}, and C. M. Own
+\cite{own2009switching}; group decision making, as in the work by
+Z. Xu \cite{xu2007intuitionistic}; and handwritten word recognition,
+as in the work by L. Baccour et al. \cite{baccour2008application}.
 
 \section{Preliminaries}
 \label{preliminaries}
@@ -675,8 +693,10 @@ for the point $t_{1}$. $A_{1}$, $A_{2}$, $A_{3}$, and $A_{4}$ are
 antecedents, and $C_{1}$, $C_{2}$, $C_{3}$, and $C_{4}$ are
 consequents.
 
-The dataset consists of 100 data points for training, and 50 data
-points for testing. These data points were scaled, such that the
+The dataset consists of 500 data points for training, and 500 data
+points for testing. These data points are ordered, as it is a time
+series, and the first subset is for training and the second dataset is
+for testing. These data points are scaled, such that the
 resulting data points range from 0 to 100. The scaling process was
 performed by applying (\ref{scaling}) over each of the data points in
 the union of the training and testing subsets. The reason behind this
@@ -755,19 +775,25 @@ experiments) along with the Clojure source code used to obtain the
 data presented in this section can be found on the following public
 Github repository: https://github.com/amherag/wcci-2016-a.
 
-Initially, 60 experiments were performed for every FIS, but that
-number of experiments didn't provide enough statistical data for the
-IT2-FISs in order to make a conclusion. For the IT2-FIS with uncertain
-mean, 100 experiments were needed to provide enough statistical data
-to conclude what FIS performed better, and for the IT2-FIS with
-uncertain standard deviation, 300 experiments were needed. To clarify,
-all of the comparisons were against the T1-IFIS.
+A total of 400 runs were performed for every FIS. The decision for
+such a high number of runs was because of trial and error. Initially,
+the IFIS was being tested with a subset of the Mackey-Glass time
+series of 100 points for training, and 50 for testing. This decision
+was made as a consequence of the high computational time required to
+process the traditional sizes of the subsets. Some of the
+comparisons were successful, but others, especially against the
+T2-FIS, were lacking statistical data in order to obtain a decisive
+conclusion. In the end, the IT2-FIS with uncertain mean and the
+IT2-FIS with uncertain standard deviation required a total of 100 and
+300 runs, respectively. This led to the decision of performing 400
+runs for each of the comparisons for the second experiment.
 
-Table \ref{first-hypothesis-tests-training} summarizes the results obtained
-for each of the FISs in the training stage, as well as the t-value
-obtained when calculating a Student's t-test. The same structure is
-followed in Table \ref{first-hypothesis-tests-testing}, which shows the
-results obtained for each of the FISs in the testing stage.
+This first set of experiments used the same parameters
+described in Section \ref{experiments}, and even though the dimensions
+of the training and testing subsets of Mackey-Glass aren't the
+traditional ones, the IFIS still achieved very good results. These
+results can be found in Table \ref{first-hypothesis-tests-training}
+and Table \ref{first-hypothesis-tests-testing}.
 
 \begin{table}[!t]
   \renewcommand{\arraystretch}{1.3}
@@ -780,32 +806,11 @@ results obtained for each of the FISs in the testing stage.
     \hline
     T1-IFIS & 89.50 & 25.36 & 60 &  & \\
     \hline
-    T1-FIS & 108.05 & 23.47 & 60 & -4.1584 & > 99.9\% \\
+    T1-FIS & 108.05 & 23.47 & 60 & -4.1584 & $>$ 99.9\% \\
     \hline
-    IT2-FIS (\(\mu\)) & 112.56 & 29.16 & 100 & -5.2597 & > 99.9\% \\
+    IT2-FIS (\(\mu\)) & 112.56 & 29.16 & 100 & -5.2597 & $>$ 99.9\% \\
     \hline
-    IT2-FIS (SD) & 102.31 & 26.08 & 300 & -3.5548 & > 99.9\% \\
-    \hline
-  \end{tabular}
-\end{table}
-
-% con 400
-\begin{table}[!t]
-  \renewcommand{\arraystretch}{1.3}
-  \caption{Hypothesis Tests for the Training Stage, Second Experiment}
-  \label{second-hypothesis-tests-training}
-  \centering
-  \begin{tabular}{|c|c|c|c|c|c|}
-    \hline
-    Method & $\mu_{TR}$ & $SD_{TR}$ & $n$ & t-Value & CI\\
-    \hline
-    T1-IFIS & 76.22 & 16.90 & 400 & & \\
-    \hline
-    T1-FIS & 85.69 & 19.68 & 400 & -7.3013 & > 99.9\% \\
-    \hline
-    IT2-FIS (\(\mu\)) & 85.93 & 19.12 & 400 & -7.6102 & > 99.9\%\\
-    \hline
-    IT2-FIS (SD) & 99.78 & 19.04 & 400 & -18.508 & > 99.9\% \\
+    IT2-FIS (SD) & 102.31 & 26.08 & 300 & -3.5548 & $>$ 99.9\% \\
     \hline
   \end{tabular}
 \end{table}
@@ -821,11 +826,44 @@ results obtained for each of the FISs in the testing stage.
     \hline
     T1-IFIS & 160.99 & 65.70 & 60 &  & \\
     \hline
-    T1-FIS & 194.97 & 71.97 & 60 & -2.7010 & > 99.2\%\\
+    T1-FIS & 194.97 & 71.97 & 60 & -2.7010 & $>$ 99.2\%\\
     \hline
-    IT2-FIS (\(\mu\)) & 192.31 & 105.75 & 100 & -2.3104 & > 97.8\% \\
+    IT2-FIS (\(\mu\)) & 192.31 & 105.75 & 100 & -2.3104 & $>$ 97.8\% \\
     \hline
-    IT2-FIS (SD) & 178.63 & 99.70 & 300 & -1.7209 & > 91.4\% \\
+    IT2-FIS (SD) & 178.63 & 99.70 & 300 & -1.7209 & $>$ 91.4\% \\
+    \hline
+  \end{tabular}
+\end{table}
+
+The second experiment follows exactly what is described in Section
+\ref{experiments}, i.e., in comparison to the first experiment, both the
+training dataset and testing dataset consist of 500 Mackey-Glass data
+points. As has been stated before, this is the traditional practice
+whet utilising the Mackey-Glass benchmark. Table
+\ref{second-hypothesis-tests-training} summarizes the results obtained
+for each of the FISs in the training stage, as well as the t-value
+obtained when calculating a Student's t-test. CI in this case stands
+for confidence interval. The same structure is followed in Table
+\ref{second-hypothesis-tests-testing}, which shows the
+results obtained for each of the FISs in the testing stage.
+
+% con 400
+\begin{table}[!t]
+  \renewcommand{\arraystretch}{1.3}
+  \caption{Hypothesis Tests for the Training Stage, Second Experiment}
+  \label{second-hypothesis-tests-training}
+  \centering
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    Method & $\mu_{TR}$ & $SD_{TR}$ & $n$ & t-Value & CI\\
+    \hline
+    T1-IFIS & 76.22 & 16.90 & 400 & & \\
+    \hline
+    T1-FIS & 85.69 & 19.68 & 400 & -7.3013 & $>$ 99.9\% \\
+    \hline
+    IT2-FIS (\(\mu\)) & 85.93 & 19.12 & 400 & -7.6102 & $>$ 99.9\%\\
+    \hline
+    IT2-FIS (SD) & 99.78 & 19.04 & 400 & -18.508 & $>$ 99.9\% \\
     \hline
   \end{tabular}
 \end{table}
@@ -843,11 +881,11 @@ results obtained for each of the FISs in the testing stage.
     \hline
     T1-IFIS & 139.38 & 95.75 & 400 &  &  \\
     \hline
-    T1-FIS & 152.26 & 126.47 & 400 & -1.6239 & > 89.4\% \\
+    T1-FIS & 152.26 & 126.47 & 400 & -1.6239 & $>$ 89.4\% \\
     \hline
-    IT2-FIS (\(\mu\)) & 154.37 & 119.92 & 400 & -1.9536 & > 94.8\% \\
+    IT2-FIS (\(\mu\)) & 154.37 & 119.92 & 400 & -1.9536 & $>$ 94.8\% \\
     \hline
-    IT2-FIS (SD) & 175.04 & 136.91 & 400 & -4.1492 & > 99.9\%\\
+    IT2-FIS (SD) & 175.04 & 136.91 & 400 & -4.1492 & $>$ 99.9\%\\
     \hline
   \end{tabular}
 \end{table}
@@ -862,6 +900,16 @@ intuitionistic grade of membership ($i\mu$), and the intuitionistic center
 of area ($iCoA$), proposed in Section \ref{proposed-method} allows the
 creation of a T1-IFIS that can perform better than a classic T1-FIS
 and an IT2-FIS.
+
+In the training stage, every comparison achieved a confidence interval
+greater than 99.9\%. Although the stage of most interest is the
+testing stage, these results are still remarkable.
+
+The only comparison which did not achieve a confidence interval
+greater than 90\% was T1-IFIS vs. T1-FIS in the testing
+stage. Nevertheless, the comparisons against the IT2-FIS with
+uncertain mean and IT2-FIS with uncertain standard deviation achieved
+high confidence intervals in this stage.
 
 Several derivative works can result from the ideas presented in this paper. For
 example, the proposed T1-IFIS can be tested using several
