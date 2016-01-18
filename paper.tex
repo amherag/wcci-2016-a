@@ -247,41 +247,88 @@ found in Section \ref{future-work}.
 \section{Related Work}
 \label{related-work}
 
+A goal of this work is to propose a method to design a Mamdani IFIS that is
+similar in construction to the traditional Mamdani FIS. There are works
+that have successfully constructed inference engines that use IFS
+instead of traditional FS, but most of these works are not Mamdani
+systems. Another goal is to fully integrate the concept of
+non-membership into the inference process in a meaningful way,
+considering how the non-membership concept should affect the process.
+
+A straightforward method to obtain an inference by using IFS is to
+apply the implication operator over a number of IFS. This operator,
+proposed by K. T. Atanassov, is described in
+\cite{atanassov2013intuitionistic} as in (\ref{ifs-implication})
+
+% intuitionistic fuzzy set
+\begin{equation}
+  \label{ifs-implication}
+  \begin{aligned}
+  A \implies B = & \{ \langle x, max(\nu_{A} (x), \mu_{B}(x)),\\
+  &\quad min(\mu_{A} (x), \nu_{B} (x)) \rangle | x \in E \}
+\end{aligned}
+\end{equation}
+
+C. Cornelis and G. Deschrijver \cite{cornelis2001compositional}
+generalize the Compositional Rule of Inference to IFSs
+%intuitionistic inference engine \cite{cornelis2001compositional} %Que
+                                %diferencias hay?
+
+A method for inference in approximate reasoning based on normal
+intuitionistic fuzzy sets \cite{bustince1995method}
+
+
+A Method and Electronic Circuit for Intuitionistic Fuzzy Inference
+\cite{marinov2005method}
+An intuitionistic fuzzy system for time series analysis in plant
+monitoring and diagnosis \cite{castillo2007intuitionistic}
+
+% Applications
+Intuitionistic fuzzy sets in some medical applications
+\cite{szmidt2001intuitionistic}
+Switching between type-2 fuzzy sets and intuitionistic fuzzy sets: an
+application in medical diagnosis \cite{own2009switching}
+Intuitionistic preference relations and their application in group
+decision making \cite{xu2007intuitionistic}
+An application of intuitionistic fuzzy information for handwritten
+Arabic word recognition \cite{baccour2008application}
 Application of intuitionistic fuzzy sets, bacillus colonies
 recognition \cite{davarzani2013novel}
 
-Alpha cut \cite{sharma2011cut} \cite{sharma2011cutgroups}
 
-intuitionistic inference engine \cite{cornelis2001compositional} %Que
-                                %diferencias hay?
-%% (Amaury): oh, sí voy a poner las diferencias. Nomás puse todo esto
-%% para acordarme :D
 
-implementation of a ifis, castillo \cite{castillo2007intuitionistic}
+
+
 % Por?  
 %% (A): Porque es lo más cercano a un FIS mamdani intuicionista. al
 %% menos de lo que encontré.
 
-more inference \cite{bustince1995method}
+%%%%%%%%Alpha cut \cite{sharma2011cut} \cite{sharma2011cutgroups}
 
-centroid of a type-2 fuzzy-set \cite{karnik2001centroid} %Por?
+%%%%%%%%centroid of a type-2 fuzzy-set \cite{karnik2001centroid} %Por?
 %% Porque yo propongo una fórmula para calcular centroide de un IFS, y
 %% como la competencia de un IFS sería un fuzzy set tipo 2, iba a
 %% hablar un poco de eso
 
-and even more inference \cite{marinov2005method}
-
-Intuitionistic control washing machines \cite{akram2014intuitionistic}
-
 \section{Preliminaries}
 \label{preliminaries}
 
-Define in more detail intuitionistic fuzzy sets. 
-
-Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
+An IFS, as defined by K. T. Atanassov in
+\cite{atanassov2013intuitionistic}, is usually represented by a
+capital letter (as a traditional set) and an uppercase star,
+e.g. $A^{*}$. The definition for an IFS is expressed in
+(\ref{ifs-definition}), where $x$ is an element of the set,
+$\mu_{A}(x)$ is the membership for that element in the set, and
+$\nu_{A}(x)$ is the non-membership for that element in the set. For
+every element in an IFS, the interval defined in
+(\ref{intuitionistic-interval}) must be satisfied. If for every
+element in an IFS $\mu_{A}(x) + \nu_{A}(x)$ is equal to 1, then this
+IFS represents an ordinary fuzzy set, and it is defined by
+(\ref{ifs-form}).
 
 % intuitionistic fuzzy set
 \begin{equation}
+  \label{ifs-definition}
   A^{*} = \{\langle x, \mu _{A} (x), \nu _{A} (x) \rangle | x \in E\}
 \end{equation}
 
@@ -297,11 +344,32 @@ Formulas and basic explanation (below) \cite{atanassov2013intuitionistic}
   \{ \langle x, \mu_{A}(x), 1 - \mu_{A}(x) \rangle | x \in E \}
 \end{equation}
 
+If for a given IFS $\mu_{A}(x) + \nu_{A}(x) < 1$, then the concept of
+indeterminacy (also found in the literature as non-determinacy and
+hesitancy) arises. Indeterminacy can be described as the
+uncertainty about the uncertainty, or how certain one can be about the
+membership of an element in a given set. This can be confused by the
+footprint of uncertainty (FOU) found in T2-FS, which could also be
+described as the uncertainty about the uncertainty, but in this case,
+the FOU represents a set of values that the membership of an element
+in a given T2-FS is taking. For example, one could add indeterminacy
+to a T2-FS, and the indeterminacy would represent how certain or
+uncertain is the FOU in the T2-FS. For every element $x$, the
+indeterminacy $\pi$ is defined as in (\ref{fs-as-ifs-if}).
+
 % if
 \begin{equation}
   \label{fs-as-ifs-if}
   \pi_{A}(x) = 1 - \mu_{A}(x) - \nu_{A}(x)
 \end{equation}
+
+% Ya lo menciono en el método propuesto
+
+% Lastly, in the proposed method, the intuitionistic membership
+% functions (IMF) representing the consequents need to be
+% aggregated. This aggregation can be done by applying the union
+% operator over the different IFS. This operator is defined in
+% \ref{atanassov2013intuitionistic} as in (\ref{ifs-union}).
 
 \section{Proposed Method}
 \label{proposed-method}
