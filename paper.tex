@@ -124,16 +124,20 @@
 \maketitle
 
 \begin{abstract}
-The concepts of intuitionistic membership, and intuitionistic center of
-area are proposed in this work, in order to propose a novel method for
-implementing an intuitionistic fuzzy inference system. The proposed
-method was implemented and compared against type-1 fuzzy inference
-systems and interval Type-2 fuzzy inference systems, with uncertain
+This work describes a method to construct type-1 intuitionistic fuzzy
+inference systems. This type of systems is able to handle more uncertainty than
+a type-1 fuzzy inference system and performs faster than a type-2
+fuzzy inference system. The concepts of intuitionistic membership, and
+intuitionistic center of area are proposed, in order to implement a
+system which is similar in design than the traditional fuzzy inference
+systems. The proposed method was implemented and compared against type-1 fuzzy inference
+systems and interval type-2 fuzzy inference systems, with uncertain
 means and uncertain standard deviations, by using the
 Mackey-Glass time series benchmark. A genetic algorithm was used to
-optimize the parameters of each of the methods being compared, and the
-results show that the intuitionistic fuzzy inference system performs
-better than the other methods.
+optimize the parameters of each of the methods being compared. This
+optimization ensures a fair comparison between each of the methods
+against the proposed method. The results show that the intuitionistic
+fuzzy inference system performs better than the other methods.
 \end{abstract}
 
 \IEEEpeerreviewmaketitle
@@ -142,56 +146,12 @@ better than the other methods.
 
 \section{Introduction}
 
-Fuzzy sets were created as an extension to traditional sets, with
-uncertainty in mind, by L. A. Zadeh in 1965 \cite{zadeh1965fuzzy}. This uncertainty allows an
-element to be associated with a grade of membership that indicates
-how much that element belongs to a set, i.e., instead of
-belonging to a set (true, or 1), or not belonging (false, or 0),
-such element can belong in a grade from 0 to 1, and this is known as
-fuzzy logic \cite{klir1995fuzzy}.
-
-A derivation of logical conclusions can be performed by using premises
-that are assumed to be true, and this is known as inference, in
-traditional logic. The same
-technique can be extended to use fuzzy premises. In this case, all the
-premises hold a grade of truthiness, and a fuzzy conclusion is derived
-from the process. A popular method for performing such fuzzy inferences is a
-Mamdani Fuzzy Inference System (FIS) \cite{mamdani1975experiment},
-where the inputs are associated with fuzzy sets, and the outputs are
-fuzzy sets themselves, which can be converted to crisp numbers
-(this process is usually called \textit{defuzzification}). Other types of
-fuzzy inference engines exist, such as Takagi-Sugeno-Kang  (TSK)
-\cite{takagi1985fuzzy} and Tsukamoto \cite{tsukamoto1979approach}.
-
-Fuzzy sets were initially criticized because they were said to
-not be able to appropriately represent uncertainty. This problem was
-addressed by L. A. Zadeh in 1975 \cite{zadeh1975concept} by creating the
-concept of Type-2 Fuzzy Sets (T2-FS). This extension to type-1 fuzzy sets allowed the creation of
-type-2 fuzzy inference systems (T2-FIS) \cite{mendel2002type}, and those systems that used the
-traditional fuzzy sets are now called Type-1 Fuzzy Inference Systems
-(T1-FIS). T2-FIS have been proved to work better than T1-FIS in many
-situations, often problems that involve high levels of uncertainty, such as
-noisy data.
-
-Another extension to fuzzy sets, called Intuitionistic Fuzzy Sets
-(IFS), was proposed by K. T. Atanassov
-\cite{atanassov1986intuitionistic}. This extension adds the concepts
-of indeterminacy and non-membership to traditional fuzzy sets. In
-traditional fuzzy sets, the non-membership of an element is always the
-complement of the membership, but in an IFS, the non-membership can be
-represented by lower values (a deeper explanation of IFS is given in
-Section \ref{preliminaries}). Whenever the sum of the membership and
-the non-membership is less than 1, indeterminacy emerges, which
-represents the grade of uncertainty of an element of being or not
-being a member of a given set, with certain grade of membership. The
-concept of indeterminacy allows an expression such as ``This is
-somewhat tall, although I'm not very sure about my opinion.''
-
-The use of IFSs in a traditional FIS should enable the handling of more
-uncertainty, and one could prefer an Intuitionistic FIS (IFIS) to obtain
+The use of intuitionistic fuzzy sets (IFSs) in a traditional fuzzy
+inference system (FIS) should enable the handling of more
+uncertainty, and one could prefer an intuitionistic FIS (IFIS) to obtain
 better accuracies without sacrificing time performance, as
-inferences in a T2-FIS are very time consuming compared to a
-T1-FIS. This is a consequence of the complex type
+inferences in a type-2 FIS (T2-FIS) are very time consuming compared to a
+type-1 FIS (T1-FIS). This is a consequence of the complex type
 reducing procedure that is involved in the defuzzification stage in a
 T2-FIS \cite{mendel2001uncertain}. Several improvements to the
 algorithms involved in the inference process in a T2-FIS have been proposed
@@ -200,12 +160,12 @@ to alleviate this problem, such as the Karnik-Mendel algorithm
 \cite{pedrycz1998shadowed}. Nevertheless, a T2-FIS is usually several
 times slower than a T1-FIS. Because of this time performance impact,
 many works that require handling more uncertainty than a T1-FIS
-use a particular case of T2-FIS, the Interval T2-FIS (IT2-FIS)
-\cite{mendel2006interval}, which is faster than a general T2-FIS. A Type-1
-Intuitionistic FIS (T1-IFIS) should perform better than a T1-FIS in terms
+use a particular case of T2-FIS, the interval T2-FIS (IT2-FIS)
+\cite{mendel2006interval}, which is faster than a general T2-FIS (GT2-FIS). A type-1
+IFIS (T1-IFIS) should perform better than a T1-FIS in terms
 of accuracy (in problems involving data with high levels of
 uncertainty), and should be faster than a T2-FIS. Furthermore, IFSs
-can be implemented as part of a T2-FIS, giving as a result a T2-IFIS.
+can be implemented as part of a T2-FIS, giving as a result a type-2 IFIS.
 
 This work proposes a method to implement IFSs in a Mamdani FIS to
 obtain a Mamdani IFIS, and presents results that prove the method as a
@@ -247,7 +207,54 @@ found in Section \ref{future-work}.
 \section{Related Work}
 \label{related-work}
 
-A goal of this work is to propose a method to design a Mamdani IFIS that is
+Fuzzy sets were created as an extension to traditional sets, with
+uncertainty in mind, by L. A. Zadeh in 1965
+\cite{zadeh1965fuzzy}. This uncertainty allows an
+element to be associated with a grade of membership that indicates
+how much that element belongs to a set, i.e., instead of
+belonging to a set (true, or 1), or not belonging (false, or 0),
+such element can belong in a grade from 0 to 1, and this is known as
+fuzzy logic \cite{klir1995fuzzy}.
+
+A derivation of logical conclusions can be performed by using premises
+that are assumed to be true, and this is known as inference in
+traditional logic. The same technique can be extended to use fuzzy
+premises. In this case, all the
+premises hold a grade of truthiness, and a fuzzy conclusion is derived
+from the process. A popular method for performing such fuzzy inferences is a
+Mamdani FIS (FIS) \cite{mamdani1975experiment},
+where the inputs are associated with fuzzy sets, and the outputs are
+fuzzy sets themselves, which can be converted to crisp numbers
+(this process is usually called \textit{defuzzification}). Other types of
+fuzzy inference engines exist, such as Takagi-Sugeno-Kang  (TSK)
+\cite{takagi1985fuzzy} and Tsukamoto \cite{tsukamoto1979approach}.
+
+Fuzzy sets were initially criticized because they were said to
+not be able to appropriately represent uncertainty. This problem was
+addressed by L. A. Zadeh in 1975 \cite{zadeh1975concept} by creating the
+concept of type-2 fuzzy sets (T2-FS). This extension to type-1 fuzzy sets allowed the creation of
+T2-FISs \cite{mendel2002type}, and those systems that used the
+traditional fuzzy sets are now called type-1 fuzzy inference systems
+(T1-FIS). T2-FISs have been proved to work better than T1-FIS in many
+situations, often problems that involve high levels of uncertainty, such as
+noisy data \cite{mendel2001uncertain}.
+
+Another extension to fuzzy sets, called intuitionistic fuzzy sets, was
+proposed by K. T. Atanassov \cite{atanassov1986intuitionistic}. This
+extension adds the concepts of indeterminacy and non-membership to
+traditional fuzzy sets. In traditional fuzzy sets, the non-membership
+of an element is always the
+complement of the membership, but in an IFS, the non-membership can be
+represented by lower values (a deeper explanation of IFS is given in
+Section \ref{preliminaries}). Whenever the sum of the membership and
+the non-membership is less than 1, indeterminacy emerges, which
+represents the grade of uncertainty of an element of being or not
+being a member of a given set, with certain grade of membership. The
+concept of indeterminacy allows an expression such as ``This is
+somewhat tall, although I'm not very sure about my opinion'' to be
+represented in a FIS.
+
+The goal of this work is to propose a Mamdani IFIS that is
 similar in construction to the traditional Mamdani FIS. There are works
 that have successfully constructed inference engines that use IFS
 instead of traditional FS, but most of these works are not Mamdani
@@ -311,8 +318,8 @@ way in which an IFS is represented. Most works represent an IFS as a
 lattice (as in \cite{deschrijver2004representation} and
 \cite{despi2013generalised}), but this work proposes a variation of the
 standard way of representing a fuzzy set. Some works use
-this way of representing an IFS (as in
-\cite{davarzani2013novel}). The proposal in this paper is to use the
+this way of representing an IFS (as in \cite{davarzani2013novel}). The
+proposal in this paper is to use the
 same convenient membership functions usually found in the design of
 traditional FISs, such as triangular or Gaussian membership functions,
 but using the complement of these functions to represent the
@@ -397,19 +404,12 @@ indeterminacy $\pi$ is defined as in (\ref{fs-as-ifs-if}).
 %% método para hacer un sistema de inferencia difusa con conjuntos
 %% difusos intuicionistas
 The method, for now, consists on the procedures and elements
-necessary to construct a basic Intuitionistic Fuzzy Inference System
-(IFIS). %(Mario)Por que basic?
-%% (A): Basic porque no añado que puedas poner OR en las reglas, no
-%% pongo otros métodos de defuzzificación, no pongo más funciones de
-%% membresía (triangulares, etc.). Explicaré eso (y)
-%(Mario)Tal vez enumerarlas? cuales procedures son?
-%% (A): Los procedures son los que están en el diagramita, y las
-%% explico abajo. Aun así las enumero?
+necessary to construct a basic IFIS, as this system can only handle
+Gaussian membership functions, and simple rules without AND or OR operators.
 An implementation was completed in order to make comparisons against
-classic Fuzzy Inference Systems (FISs), such as Type-1 FIS, Interval
-Type-2 and General Type-2 FIS, and prove that
+traditional FISs, such as T1-FISs, IT2-FISs, and GT2-FIS, and prove that
 the design was viable and able to contribute to better results than
-the classic FISs.
+the traditional FISs.
 %(Mario)Es el proposito del diseño comparar? Creo que puedes decir mejor algo como:
 %In order to assess the advantage of our proposal in terms of X
 %a comparassion with  Type-1 FIS, Interval Type-2 and General Type-2 FIS,
@@ -426,14 +426,14 @@ the classic FISs.
 %% (A): Ya lo cambié al principio, pero el design en "prove that the
 %% design was viable" no sé si cambiarlo
 
-In many works, intuitionistic fuzzy sets (IFSs) are constructed manualy,
+In many works, IFSs are constructed manually,
 by interviewing experts who assign memberships and
-non-memberships to each of the values of a set (such as in %to each of the members of a set?
+non-memberships to each of the elements of a set (such as in %to each of the members of a set?
 \cite{davarzani2013novel}). This work proposes a convenient way of
 creating an IFS, imitating many systems that use Gaussian
 membership functions (MFs) to facilitate an expert the representation of a
 fuzzy interpretation. An example of an IFS is depicted in
-Figure \ref{fs-as-ifs}. This IFS represents a classic fuzzy set, as it
+Figure \ref{fs-as-ifs}. This IFS represents a traditional fuzzy set, as it
 satisfies (\ref{ifs-form}) and (\ref{fs-as-ifs-if}), by representing
 the MF as the red line, and the non-membership
 function (NMF) as the blue line. In order to contruct the NMF, one has
@@ -447,7 +447,7 @@ complement of the fuzzy set corresponding to a Gaussian MF.
 \begin{figure}[!t]
   \centering
   \includegraphics[width=3.0in]{fs-as-ifs}
-  \caption{Classic Fuzzy Set Represented as an Intuitionistic Fuzzy Set}
+  \caption{Traditional Fuzzy Set Represented as an Intuitionistic Fuzzy Set}
   \label{fs-as-ifs}
 \end{figure}
 
@@ -479,19 +479,19 @@ of the MF ($h_{mf}$) of an IFS is equal to $max(\mu(x))$, and the
   \label{ifs-diff-mu-sd}
 \end{figure}
 
-The first step of the inference process in a classic FIS (a flow chart
+The first step of the inference process in a traditional FIS (a flow chart
 for the process in an IFIS is given in Figure \ref{flow-chart}) is to
 determine what grade of membership corresponds to a given input, given a set of
 %(Mario)determine what particular membership function corresponds to a 
 % given input, given a set of 
 %% (A): Es grade of membership, perdón. De hecho hay ese error en
 %% otras partes, tengo que cambiarlo.
-MFs. This is straightforward in a classic FIS, as the
+MFs. This is straightforward in a traditional FIS, as the
 membership to each input is already established in the membership
 fuzzy set. For an IFIS, this work proposes a method to determine a
 membership given a MF and a NMF,
 which is described in (\ref{imembership}), and receives the name of
-$i\mu$ (intuitionistic membership). %(Mario)Creo que este podría ser
+intuitionistic membership and is represented as $i\mu$. %(Mario)Creo que este podría ser
                                 %el titulo
 %% (A): Para poder hacer un FIS intuicionista, necesité el
 %% intuitionistic membership y el intuitionistic center of area. Cómo
@@ -538,9 +538,9 @@ intuitionistic MF.
   \label{if-membership-drastic}
 \end{figure}
 
-The next step in the inference process is to perform an $\alpha$-cut % (Mario) La del FIS? aclaralo
+The next step in the inference process of a FIS is to perform an $\alpha$-cut % (Mario) La del FIS? aclaralo
 on the associated consequents to the antecedents that are
-activated by the inputs. In a classic FIS, this process is straightforward, as
+activated by the inputs. In a traditional FIS, this process is straightforward, as
 the memeberships in a fuzzy set representing a consequent are ``cut'' by
 following (\ref{alpha-cut}) for every element in a fuzzy set representing a
 consequent. In an intuitionistic MF, one can follow the same procedure in order
@@ -601,9 +601,9 @@ Finally, one has to defuzzify the aggregation of the $\alpha$-cut
 consequents, in order to obtain a crisp number that represents
 it. There are a number of methods that can be used to defuzzify a
 % Aclara que en los tipo Mamdani %% (A): ahhhhh cierto, cierto
-fuzzy set, but the most frequently found in the literature is the
-Center of Area (CoA), or simply centroid. One can obtain the centroid
-of a classic fuzzy set A by using (\ref{center-of-area}). For an
+fuzzy set in a Mamdani FIS, but the most frequently found in the literature is the
+center of area (CoA) or centroid. One can obtain the centroid
+of a traditional fuzzy set A by using (\ref{center-of-area}). For an
 IFS, one can use the concept of intuitionistic membership ($i\mu$) and
 extend (\ref{center-of-area}) to obtain (\ref{if-coa}). By
 substituting $(\mu(x_{i}) + \nu(x_{i}))$ by $i\mu_{A}$, one arrives at
@@ -647,16 +647,15 @@ deviations of 15 for the MF, and 20 for the NMF.
 
 The purpose of the experiments in this work is to demonstrate that the
 proposed method is viable for performing inference using
-intuitionistic fuzzy sets instead of classic fuzzy sets, i.e., that
+intuitionistic fuzzy sets instead of traditional fuzzy sets, i.e., that
 the concepts of intuitionistic membership ($i\mu$) and intuitionistic
 center of area ($iCoA$) enable an extension to traditional fuzzy
 inference systems to support indeterminacy and non-membership. To
 demonstrate this claim, this work presents a series of experiments
-where the proposed method is compared against Type-1 Fuzzy Inference
-Systems (T1-FISs) and Interval Type-2 Fuzzy Inference Systems
-(T2-FISs) with uncertain mean and uncertain standard deviation.
+where the proposed method is compared against T1-FISs and IT2-FISs
+with uncertain mean and uncertain standard deviation.
 
-The initial (and ambitious) hypothesis is that a Type-1 Intuitionistic Fuzzy System (T1-IFIS)
+The initial (and ambitious) hypothesis is that a T1-IFIS
 should perform better than a T1-FIS, as it can handle both uncertainty
 and indeterminacy, and it is unclear if an IFIS should perform better
 than a T2-FIS. The experiments presented in this work
@@ -776,7 +775,7 @@ data presented in this section can be found on the following public
 Github repository: https://github.com/amherag/wcci-2016-a.
 
 A total of 400 runs were performed for every FIS. The decision for
-such a high number of runs was because of trial and error. Initially,
+that particular number of runs was because of trial and error. Initially,
 the IFIS was being tested with a subset of the Mackey-Glass time
 series of 100 points for training, and 50 for testing. This decision
 was made as a consequence of the high computational time required to
@@ -898,7 +897,7 @@ outperforms the T1-FIS, IT2-FIS with uncertain mean, and IT2-FIS with
 uncertain standard deviation. These results sustain the claim that the
 intuitionistic grade of membership ($i\mu$), and the intuitionistic center
 of area ($iCoA$), proposed in Section \ref{proposed-method} allows the
-creation of a T1-IFIS that can perform better than a classic T1-FIS
+creation of a T1-IFIS that can perform better than a traditional T1-FIS
 and an IT2-FIS.
 
 In the training stage, every comparison achieved a confidence interval
@@ -914,8 +913,7 @@ high confidence intervals in this stage.
 Several derivative works can result from the ideas presented in this paper. For
 example, the proposed T1-IFIS can be tested using several
 benchmarks, other than the Mackey-Glass time series. Also, this work
-should inspire the creation of Type-2 Intuitionistic Fuzzy Inference
-Systems (both the interval and general types).
+should inspire the creation of T2-IFIS (both the interval and general types).
 
 \section{Future Work}
 \label{future-work}
